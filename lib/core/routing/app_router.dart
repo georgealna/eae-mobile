@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../di/dependency_injection.dart';
+import '../../features/secure_access/presentation/screens/secure_access_screen.dart';
+import '../../features/splash/presentation/screens/splash_screen.dart';
 import 'routes.dart';
 
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case Routes.signUpScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => BlocProvider(
-      //       create: (context) => getIt<SignupCubit>(),
-      //       child: SignUpScreen(),
-      //     ),
-      //   );
+      case Routes.splashScreen:
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
+
+      case Routes.secureAccessScreen:
+        return MaterialPageRoute(builder: (_) => const SecureAccessScreen());
 
       default:
         return null;

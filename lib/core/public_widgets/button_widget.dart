@@ -33,16 +33,16 @@ class ButtonWidget extends StatelessWidget {
       height: height ?? 52.h,
       child: Material(
         borderRadius: BorderRadius.all(Radius.circular(radius ?? 16.r)),
-        color: backgroundColor ?? AppColors.primary,
+        color: backgroundColor ?? AppColors.primaryColor,
         child: InkWell(
           borderRadius: BorderRadius.all(Radius.circular(radius ?? 16.r)),
           onTap: onTap,
           child: Ink(
             decoration: BoxDecoration(
-              color: backgroundColor ?? AppColors.primary,
+              color: backgroundColor ?? AppColors.primaryColor,
               borderRadius: BorderRadius.all(Radius.circular(radius ?? 16.r)),
               border: Border.all(
-                color: borderColor ?? AppColors.primary,
+                color: borderColor ?? AppColors.primaryColor,
                 width: borderWidth ?? 1.5.w,
               ),
             ),

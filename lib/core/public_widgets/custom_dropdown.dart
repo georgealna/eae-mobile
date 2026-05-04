@@ -25,10 +25,10 @@ class CustomDropdown extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.h),
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: AppColors.neutralColor,
         borderRadius: BorderRadius.circular(10.r),
         boxShadow: [
-          BoxShadow(color: AppColors.darkGreyColor, blurRadius: 10.r),
+          BoxShadow(color: AppColors.tertiaryColor9, blurRadius: 10.r),
         ],
       ),
       child: DropdownButtonFormField<String>(
@@ -39,11 +39,11 @@ class CustomDropdown extends StatelessWidget {
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           filled: true,
-          fillColor: AppColors.whiteColor,
+          fillColor: AppColors.neutralColor,
         ),
         icon: Icon(
           Icons.arrow_drop_down_outlined,
-          color: AppColors.darkGreyColor,
+          color: AppColors.tertiaryColor9,
         ),
         hint: Text(
           hintText,
@@ -54,7 +54,10 @@ class CustomDropdown extends StatelessWidget {
             .map(
               (type) => DropdownMenuItem(
                 value: type,
-                child: Text(type, style: TextStyle(color: AppColors.greyColor)),
+                child: Text(
+                  type,
+                  style: TextStyle(color: AppColors.tertiaryColor5),
+                ),
               ),
             )
             .toList(),

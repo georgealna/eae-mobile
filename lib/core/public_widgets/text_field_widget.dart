@@ -62,9 +62,9 @@ class TextFieldWidget extends StatelessWidget {
       width: width?.w,
       child: TextFormField(
         readOnly: readOnly ?? false,
-        style: TextStyle(color: inputColor ?? AppColors.greyColor),
+        style: TextStyle(color: inputColor ?? AppColors.tertiaryColor5),
         keyboardType: keyboardType ?? TextInputType.text,
-        cursorColor: AppColors.primary,
+        cursorColor: AppColors.primaryColor,
         validator: (value) => InputValidator.validate(
           value: value ?? "",
           type: validationType,
@@ -78,7 +78,7 @@ class TextFieldWidget extends StatelessWidget {
         textInputAction: textInputAction,
         decoration: InputDecoration(
           filled: true,
-          fillColor: AppColors.whiteColor,
+          fillColor: AppColors.neutralColor,
           suffixIcon: suffixIcon != null
               ? IconButton(
                   icon: Icon(suffixIcon),
@@ -93,21 +93,24 @@ class TextFieldWidget extends StatelessWidget {
                   color: prefixIconColor,
                 )
               : null,
-          iconColor: AppColors.border,
+          iconColor: AppColors.tertiaryColor7,
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.primary, width: 2.w),
+            borderSide: BorderSide(color: AppColors.primaryColor, width: 2.w),
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.border, width: 1.w),
+            borderSide: BorderSide(color: AppColors.tertiaryColor7, width: 1.w),
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
           hintText: hintText,
-          hintStyle: TextStyle(fontSize: 12.sp, color: AppColors.greyColor),
+          hintStyle: TextStyle(
+            fontSize: 12.sp,
+            color: AppColors.tertiaryColor5,
+          ),
           labelText: labelText,
           labelStyle: TextStyle(
             fontSize: 14.sp,
-            color: AppColors.greyColor,
+            color: AppColors.tertiaryColor5,
             fontWeight: AppFontWeightHelper.medium,
           ),
           border: const OutlineInputBorder(

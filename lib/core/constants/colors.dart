@@ -1,62 +1,121 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  /// Toggle for dark / light mode
   static bool isDarkMode = false;
 
-  static Color get background =>
-      isDarkMode ? const Color(0xFF111417) : const Color(0xFFD5FFDD);
-  static Color get primary =>
-      isDarkMode ? const Color(0xFF1B2228) : const Color(0xFF24A448);
-  static Color get whiteColor => const Color(0xFFFFFFFF);
-  static Color get darkGreyColor => const Color(0xFF2D3748);
-  static Color get greyColor => const Color(0xFF616161);
-  static Color get surface =>
-      isDarkMode ? const Color(0xFF1B2228) : const Color(0xFFFFFFFF);
-  static Color get surfaceSoft =>
-      isDarkMode ? const Color(0xFF242C34) : const Color(0xFFF4F4F4);
-  static Color get textPrimary =>
-      isDarkMode ? const Color(0xFFF1F5F9) : const Color(0xFF111111);
-  static Color get textSecondary =>
-      isDarkMode ? const Color(0xFFB8C2CC) : const Color(0xFF616161);
-  static Color get border =>
-      isDarkMode ? const Color(0xFF37424D) : const Color(0xFFC3C3C3);
-  static Color get appBarBackground =>
-      isDarkMode ? const Color(0xFF0D5D23) : backGroundAppBar;
-  static Color get cameraBackground =>
-      isDarkMode ? const Color(0xFF000000) : const Color(0xFF1E1E1E);
-  static Color get danger => isDarkMode ? const Color(0xFFE57373) : redError;
-  static Color get iconMuted =>
-      isDarkMode ? const Color(0xFF8FA1B2) : const Color(0xFF5A5A5A);
-  static Color get navBackground => surface;
-  static Color get navSelected =>
-      isDarkMode ? const Color(0xFF7EB4FF) : const Color(0xFF2962FF);
-  static Color get navUnselected =>
-      isDarkMode ? const Color(0xFF94A3B8) : const Color(0xFF607D8B);
+  // --- Primary (light base #0A192F) ---
+  static const Color _primaryLight = Color(0xFF0A192F);
+  static Color get primaryColor1 =>
+      Color.lerp(Colors.white, _primaryLight, 0.95)!; // very light
+  static Color get primaryColor2 =>
+      Color.lerp(Colors.white, _primaryLight, 0.8)!;
+  static Color get primaryColor3 =>
+      Color.lerp(Colors.white, _primaryLight, 0.6)!;
+  static Color get primaryColor4 =>
+      Color.lerp(Colors.white, _primaryLight, 0.4)!;
+  static Color get primaryColor5 =>
+      Color.lerp(Colors.white, _primaryLight, 0.2)!;
+  static Color get primaryColor6 => _primaryLight; // base
+  static Color get primaryColor7 =>
+      Color.lerp(Colors.black, _primaryLight, 0.08)!; // slightly darker
+  static Color get primaryColor8 =>
+      Color.lerp(Colors.black, _primaryLight, 0.18)!;
+  static Color get primaryColor9 =>
+      Color.lerp(Colors.black, _primaryLight, 0.28)!;
+  static Color get primaryColor10 =>
+      Color.lerp(Colors.black, _primaryLight, 0.4)!; // darkest
 
-  // Neutral Colors
+  // --- Secondary (base #14B8A6) ---
+  static const Color _secondaryLight = Color(0xFF14B8A6);
+  static Color get secondaryColor1 =>
+      Color.lerp(Colors.white, _secondaryLight, 0.95)!;
+  static Color get secondaryColor2 =>
+      Color.lerp(Colors.white, _secondaryLight, 0.8)!;
+  static Color get secondaryColor3 =>
+      Color.lerp(Colors.white, _secondaryLight, 0.6)!;
+  static Color get secondaryColor4 =>
+      Color.lerp(Colors.white, _secondaryLight, 0.4)!;
+  static Color get secondaryColor5 =>
+      Color.lerp(Colors.white, _secondaryLight, 0.2)!;
+  static Color get secondaryColor6 => _secondaryLight;
+  static Color get secondaryColor7 =>
+      Color.lerp(Colors.black, _secondaryLight, 0.08)!;
+  static Color get secondaryColor8 =>
+      Color.lerp(Colors.black, _secondaryLight, 0.18)!;
+  static Color get secondaryColor9 =>
+      Color.lerp(Colors.black, _secondaryLight, 0.28)!;
+  static Color get secondaryColor10 =>
+      Color.lerp(Colors.black, _secondaryLight, 0.4)!;
+
+  // --- Tertiary (base #64748B) ---
+  static const Color _tertiaryLight = Color(0xFF64748B);
+  static Color get tertiaryColor1 =>
+      Color.lerp(Colors.white, _tertiaryLight, 0.95)!;
+  static Color get tertiaryColor2 =>
+      Color.lerp(Colors.white, _tertiaryLight, 0.8)!;
+  static Color get tertiaryColor3 =>
+      Color.lerp(Colors.white, _tertiaryLight, 0.6)!;
+  static Color get tertiaryColor4 =>
+      Color.lerp(Colors.white, _tertiaryLight, 0.4)!;
+  static Color get tertiaryColor5 =>
+      Color.lerp(Colors.white, _tertiaryLight, 0.2)!;
+  static Color get tertiaryColor6 => _tertiaryLight;
+  static Color get tertiaryColor7 =>
+      Color.lerp(Colors.black, _tertiaryLight, 0.08)!;
+  static Color get tertiaryColor8 =>
+      Color.lerp(Colors.black, _tertiaryLight, 0.18)!;
+  static Color get tertiaryColor9 =>
+      Color.lerp(Colors.black, _tertiaryLight, 0.28)!;
+  static Color get tertiaryColor10 =>
+      Color.lerp(Colors.black, _tertiaryLight, 0.4)!;
+
+  // --- Neutral (base #F8FAFC) ---
+  static const Color _neutralLight = Color(0xFFF8FAFC);
+  static Color get neutralColor1 =>
+      Color.lerp(Colors.white, _neutralLight, 0.95)!;
+  static Color get neutralColor2 =>
+      Color.lerp(Colors.white, _neutralLight, 0.8)!;
+  static Color get neutralColor3 =>
+      Color.lerp(Colors.white, _neutralLight, 0.6)!;
+  static Color get neutralColor4 =>
+      Color.lerp(Colors.white, _neutralLight, 0.4)!;
+  static Color get neutralColor5 =>
+      Color.lerp(Colors.white, _neutralLight, 0.2)!;
+  static Color get neutralColor6 => _neutralLight;
+  static Color get neutralColor7 =>
+      Color.lerp(Colors.black, _neutralLight, 0.08)!;
+  static Color get neutralColor8 =>
+      Color.lerp(Colors.black, _neutralLight, 0.18)!;
+  static Color get neutralColor9 =>
+      Color.lerp(Colors.black, _neutralLight, 0.28)!;
+  static Color get neutralColor10 =>
+      Color.lerp(Colors.black, _neutralLight, 0.4)!;
+
+  // Public active color getters that switch by `isDarkMode`
+  static Color get primaryColor => isDarkMode ? primaryColor10 : _primaryLight;
+  static Color get secondaryColor =>
+      isDarkMode ? secondaryColor10 : _secondaryLight;
+  static Color get tertiaryColor =>
+      isDarkMode ? tertiaryColor10 : _tertiaryLight;
+  static Color get neutralColor => isDarkMode ? neutralColor10 : _neutralLight;
+
+  // --- Compatibility / legacy getters (map old names to new palette) ---
+  static Color get background => neutralColor;
+  static Color get primary => primaryColor;
+  static Color get whiteColor => neutralColor;
+  static Color get darkGreyColor => tertiaryColor9;
+  static Color get greyColor => tertiaryColor5;
+  static Color get border => tertiaryColor7;
+  static Color get surface => neutralColor;
+  static Color get surfaceSoft => neutralColor4;
+  static Color get backGroundAppBar => primaryColor;
+  static Color get textPrimary =>
+      isDarkMode ? Color(0xFFF1F5F9) : Color(0xFF111111);
+  // Legacy constants still used across the codebase
   static const Color white = Color(0xFFFFFFFF);
-  static Color get gray =>
-      isDarkMode ? const Color(0xFF93A1AF) : const Color(0xFF8E8E8E);
-  static const Color backGroundAppBar = Color(0xff24A448);
   static Color get whiteLaight => white;
-  static Color get black => textPrimary;
-  static Color get backGroundBody => background;
-  // Cards Color
-  static const Color forestGreen = Color(0xff049A2E);
-  static const Color bluePrimary = Color(0xFF001CBC);
-  static const Color greenSuccess = Color(0xFF218C00);
-  static const Color orangeWarning = Color(0xFFF95B00);
-  static const Color redError = Color(0xFFC90000);
-  static const Color borderColor = Color(0xFFFFDEDE);
-  //search bar
-  static Color get offWhite => surfaceSoft;
-  //labels Color
   static const Color redWarring = Color(0xffBF0000);
-  static const Color greenGood = Color(0xff007C27);
   static const Color orangeLowInStock = Color(0xffA64200);
-  //propsal color
-  static const Color pendingStatusText = Color(0xffA54200);
-  static const Color approvedStatusText = Color(0xff198800);
-  static const Color rejectedStatusText = Color(0xff920000);
-  static Color get circelBorder => border;
+  static const Color greenGood = Color(0xff007C27);
 }

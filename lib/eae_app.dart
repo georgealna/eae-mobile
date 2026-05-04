@@ -24,10 +24,10 @@ class EaeApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'EAE Mobile ',
           onGenerateRoute: appRouter.generateRoute,
-          initialRoute: Routes.signUpScreen,
+          initialRoute: Routes.splashScreen,
           theme: ThemeData(
-            primaryColor: AppColors.background,
-            scaffoldBackgroundColor: AppColors.background,
+            primaryColor: AppColors.neutralColor,
+            scaffoldBackgroundColor: AppColors.neutralColor,
           ),
           builder: (context, child) {
             return BlocBuilder<LanguageCubit, String>(
