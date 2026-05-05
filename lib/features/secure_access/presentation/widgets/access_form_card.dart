@@ -7,9 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_styles.dart';
+import '../../../../core/helpers/extentions.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/public_widgets/button_widget.dart';
+import '../../../../core/public_widgets/snack_bar_widget.dart';
 import '../../../../core/public_widgets/text_field_widget.dart';
+import '../../../../core/routing/routes.dart';
 import '../../logic/secure_access_cubit.dart';
 
 class AccessFormCard extends StatelessWidget {
@@ -17,7 +20,26 @@ class AccessFormCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SecureAccessCubit, SecureAccessState>(
+    return BlocConsumer<SecureAccessCubit, SecureAccessState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          ready: (_, __, ___, errorMessage) {
+            if (errorMessage == null || errorMessage.trim().isEmpty) {
+              return;
+            }
+
+            showAppSnackBar(context, errorMessage);
+          },
+          success: () {
+            showAppSnackBar(context, 'Access verified');
+            context.pushNamedAndRemoveUntil(
+              Routes.loginScreen,
+              predicate: (_) => false,
+            );
+          },
+          orElse: () {},
+        );
+      },
       builder: (context, state) {
         final readyState = state.maybeWhen(
           ready: (email, selectedPartner, isSubmitting, errorMessage) =>
@@ -66,15 +88,6 @@ class AccessFormCard extends StatelessWidget {
                   inputColor: AppColors.primaryColor9,
                   validationType: InputValidationType.emailOrOrgId,
                 ),
-                if (readyState.errorMessage != null) ...[
-                  verticalSpace(8),
-                  Text(
-                    readyState.errorMessage!,
-                    style: AppTextStyles.font12DarkGreyLight.copyWith(
-                      color: AppColors.orangeLowInStock,
-                    ),
-                  ),
-                ],
                 verticalSpace(16),
                 Container(
                   width: double.infinity,
@@ -83,25 +96,7 @@ class AccessFormCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: readyState.isSubmitting
-                      ? Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            AbsorbPointer(
-                              child: ButtonWidget(
-                                title: AppStrings.identifyingInstitution,
-                                onTap: () {},
-                                width: double.infinity,
-                                height: 52.h,
-                                radius: 12.r,
-                                backgroundColor: AppColors.primaryColor10,
-                                borderColor: AppColors.primaryColor10,
-                                textStyle: AppTextStyles.font14DarkGreySemiBold
-                                    .copyWith(color: AppColors.neutralColor),
-                              ),
-                            ),
-                            LoadingWidget(color: AppColors.primaryColor5),
-                          ],
-                        )
+                      ? const LoadingWidget()
                       : ButtonWidget(
                           title: AppStrings.identifyingInstitution,
                           onTap: context.read<SecureAccessCubit>().submit,

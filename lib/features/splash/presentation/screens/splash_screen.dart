@@ -1,4 +1,3 @@
-import 'package:eae_mobile/core/helpers/extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,8 +13,21 @@ import '../widgets/splash_progress_bar.dart';
 import '../widgets/splash_status_card.dart';
 import '../widgets/splash_system_status.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SplashCubit>().start();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +41,18 @@ class _SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SplashCubit, SplashState>(
+      listenWhen: (previous, current) =>
+          current.maybeWhen(completed: (_) => true, orElse: () => false),
       listener: (context, state) {
-        final isCompleted = state.maybeWhen(
-          completed: (_) => true,
-          orElse: () => false,
-        );
-        if (isCompleted) {
-          context.pushReplacementNamed(Routes.secureAccessScreen);
-        }
+        Future.microtask(() {
+          if (!context.mounted) {
+            return;
+          }
+          Navigator.of(
+            context,
+            rootNavigator: true,
+          ).pushReplacementNamed(Routes.secureAccessScreen);
+        });
       },
       child: Scaffold(
         backgroundColor: AppColors.primaryColor,
