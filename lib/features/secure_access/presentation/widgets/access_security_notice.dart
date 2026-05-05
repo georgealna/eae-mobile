@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_styles.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -39,19 +40,18 @@ class AccessSecurityNotice extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Institutional Security Notice',
+                  AppStrings.institutionalSecurityNotice,
                   style: AppTextStyles.font14DarkGreySemiBold.copyWith(
-                    color: AppColors.primaryColor9,
+                    color: AppColors.secondaryColor,
                   ),
                 ),
                 verticalSpace(6),
                 Text(
-                  'This assessment portal is strictly for authorized personnel. '
-                  'Your connection is being monitored and protected by '
-                  'Enterprise Vault encryption protocols.',
+                  AppStrings.institutionalSecurityNoticeDescription,
                   style: AppTextStyles.font12DarkGreyLight.copyWith(
-                    color: AppColors.tertiaryColor6,
+                    color: AppColors.tertiaryColor4,
                     height: 1.4,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],

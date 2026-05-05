@@ -6,4 +6,6 @@ enum InputValidationType {
   password,
   number,
   emailOrPhone,
+  orgId,
+  emailOrOrgId,
 }

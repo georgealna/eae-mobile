@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/helpers/spacing.dart';
-import '../../logic/secure_access_cubit.dart';
 import '../widgets/access_footer_links.dart';
 import '../widgets/access_form_card.dart';
 import '../widgets/access_header.dart';
@@ -17,10 +15,7 @@ class SecureAccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => SecureAccessCubit(),
-      child: const _SecureAccessView(),
-    );
+    return const _SecureAccessView();
   }
 }
 

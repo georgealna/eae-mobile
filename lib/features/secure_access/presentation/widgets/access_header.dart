@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_styles.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -22,14 +23,14 @@ class AccessHeader extends StatelessWidget {
           ),
           child: Icon(
             Icons.verified_user_outlined,
-            color: AppColors.primaryColor,
+            color: AppColors.primaryColor5,
             size: 20.sp,
           ),
         ),
         horizontalSpace(12),
         Expanded(
           child: Text(
-            'Enterprise Assessment',
+            AppStrings.enterpriseAssessmentTitle,
             style: AppTextStyles.font16DarkGreyBold.copyWith(
               color: AppColors.primaryColor9,
             ),

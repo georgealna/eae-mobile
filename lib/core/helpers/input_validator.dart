@@ -40,6 +40,14 @@ class InputValidator {
 
       case InputValidationType.none:
         return null;
+
+      case InputValidationType.orgId:
+        pattern = r'^ORG-[0-9]{5}$';
+        break;
+
+      case InputValidationType.emailOrOrgId:
+        pattern = r'^([\w-\.]+@([\w-]+\.)+[\w-]{2,4}|ORG-[0-9]{5})$';
+        break;
     }
 
     if (customPattern != null) {
@@ -76,6 +84,12 @@ class InputValidator {
 
       case InputValidationType.none:
         return "Invalid format";
+
+      case InputValidationType.orgId:
+        return "should be like: ORG-12345";
+
+      case InputValidationType.emailOrOrgId:
+        return "Enter a valid email or org ID (ORG-12345)";
 
       // ignore: unreachable_switch_default
       default:

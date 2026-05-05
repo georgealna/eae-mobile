@@ -1,4 +1,8 @@
+import 'package:eae_mobile/core/di/dependency_injection.dart';
+import 'package:eae_mobile/features/splash/logic/splash_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/secure_access/logic/secure_access_cubit.dart';
 import '../../features/secure_access/presentation/screens/secure_access_screen.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import 'routes.dart';
@@ -7,10 +11,20 @@ class AppRouter {
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splashScreen:
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<SplashCubit>()..start(),
+            child: const SplashScreen(),
+          ),
+        );
 
       case Routes.secureAccessScreen:
-        return MaterialPageRoute(builder: (_) => const SecureAccessScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<SecureAccessCubit>(),
+            child: const SecureAccessScreen(),
+          ),
+        );
 
       default:
         return null;

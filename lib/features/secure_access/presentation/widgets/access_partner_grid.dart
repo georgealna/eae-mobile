@@ -1,3 +1,4 @@
+import 'package:eae_mobile/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,12 +14,12 @@ class AccessPartnerGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final partners = [
-      _Partner('Global Bank X', Icons.account_balance),
-      _Partner('Engineering SOC', Icons.security),
-      _Partner('Fintech Partners', Icons.trending_up),
-      _Partner('Maritime Alliance', Icons.anchor),
-      _Partner('Insurance Group', Icons.shield),
-      _Partner('Other Partners', Icons.add_circle_outline, isGhost: true),
+      _Partner(AppStrings.globalBankX, Icons.account_balance),
+      _Partner(AppStrings.engineeringSOC, Icons.security),
+      _Partner(AppStrings.fintechPartners, Icons.trending_up),
+      _Partner(AppStrings.maritimeAlliance, Icons.anchor),
+      _Partner(AppStrings.insuranceGroup, Icons.shield),
+      _Partner(AppStrings.otherPartners, Icons.add_circle_outline, isGhost: true),
     ];
 
     return BlocBuilder<SecureAccessCubit, SecureAccessState>(

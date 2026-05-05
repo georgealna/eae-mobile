@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_styles.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -12,10 +13,10 @@ class AccessFooterLinks extends StatelessWidget {
     return Column(
       children: [
         Text(
-          '© 2024 Enterprise Assessment Engine. All rights reserved.',
+          AppStrings.allRightsReserved,
           textAlign: TextAlign.center,
           style: AppTextStyles.font10DarkGreyRegular.copyWith(
-            color: AppColors.tertiaryColor4,
+            color: AppColors.primaryColor9,
             letterSpacing: 1.1,
           ),
         ),
@@ -23,9 +24,9 @@ class AccessFooterLinks extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _FooterLink(label: 'PRIVACY\nPROTOCOL'),
-            _FooterLink(label: 'TERMS OF\nACCESS'),
-            _FooterLink(label: 'SECURITY\nWHITEPAPER'),
+            _FooterLink(label: AppStrings.privacyProtocol),
+            _FooterLink(label: AppStrings.termsOfAccess),
+            _FooterLink(label: AppStrings.securityWhitepaper),
           ],
         ),
       ],
@@ -44,7 +45,7 @@ class _FooterLink extends StatelessWidget {
       label,
       textAlign: TextAlign.center,
       style: AppTextStyles.font10DarkGreyRegular.copyWith(
-        color: AppColors.tertiaryColor5,
+        color: AppColors.primaryColor9,
         letterSpacing: 1.2,
         fontWeight: FontWeight.w600,
       ),
