@@ -1,6 +1,12 @@
 import 'package:eae_mobile/core/di/dependency_injection.dart';
+import 'package:eae_mobile/features/assessment_inventory/logic/assessment_inventory_cubit.dart';
+import 'package:eae_mobile/features/assessment_inventory/presentation/screens/assessment_inventory_screen.dart';
 import 'package:eae_mobile/features/auth/logic/login_cubit.dart';
 import 'package:eae_mobile/features/auth/presentation/screens/login_screen.dart';
+import 'package:eae_mobile/features/assessment_setup/logic/assessment_setup_cubit.dart';
+import 'package:eae_mobile/features/assessment_setup/presentation/screens/assessment_setup_screen.dart';
+import 'package:eae_mobile/features/forensics_checkpoint/logic/forensics_checkpoint_cubit.dart';
+import 'package:eae_mobile/features/forensics_checkpoint/presentation/screens/forensics_checkpoint_screen.dart';
 import 'package:eae_mobile/features/splash/logic/splash_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +39,30 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (context) => getIt<LoginCubit>(),
             child: const LoginScreen(),
+          ),
+        );
+
+      case Routes.assessmentInventoryScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<AssessmentInventoryCubit>(),
+            child: const AssessmentInventoryScreen(),
+          ),
+        );
+
+      case Routes.forensicsCheckpointScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ForensicsCheckpointCubit>(),
+            child: const ForensicsCheckpointScreen(),
+          ),
+        );
+
+      case Routes.assessmentSetupScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<AssessmentSetupCubit>(),
+            child: const AssessmentSetupScreen(),
           ),
         );
 

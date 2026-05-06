@@ -5,6 +5,9 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/logic/login_cubit.dart';
+import '../../features/assessment_inventory/logic/assessment_inventory_cubit.dart';
+import '../../features/assessment_setup/logic/assessment_setup_cubit.dart';
+import '../../features/forensics_checkpoint/logic/forensics_checkpoint_cubit.dart';
 import '../../features/secure_access/logic/secure_access_cubit.dart';
 import '../../features/splash/logic/splash_cubit.dart';
 import '../networking/api_services_impl.dart';
@@ -24,6 +27,22 @@ Future<void> setupGetit() async {
   // //! feature - auth
   // cubit
   getIt.registerFactory<LoginCubit>(() => LoginCubit());
+
+  // //! feature - assessment inventory
+  // cubit
+  getIt.registerFactory<AssessmentInventoryCubit>(
+    () => AssessmentInventoryCubit(),
+  );
+
+  // //! feature - forensics checkpoint
+  // cubit
+  getIt.registerFactory<ForensicsCheckpointCubit>(
+    () => ForensicsCheckpointCubit(),
+  );
+
+  // //! feature - assessment setup
+  // cubit
+  getIt.registerFactory<AssessmentSetupCubit>(() => AssessmentSetupCubit());
 
   //! Core
 
