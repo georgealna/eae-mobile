@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/text_styles.dart';
-import '../../../../core/helpers/spacing.dart';
-import '../../data/models/assessment_session_models.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/text_styles.dart';
+import '../../../../../core/helpers/spacing.dart';
+import '../../../data/models/assessment_session_models.dart';
 
 class AssessmentSessionSyncCard extends StatelessWidget {
   final SyncStatusData data;
@@ -132,3 +132,4 @@ class AssessmentSessionSyncCard extends StatelessWidget {
     );
   }
 }
+

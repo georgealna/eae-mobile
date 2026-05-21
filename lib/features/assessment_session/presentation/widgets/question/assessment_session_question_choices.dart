@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../data/models/assessment_session_models.dart';
+import '../../../data/models/assessment_session_models.dart';
 import 'assessment_session_choice_tile.dart';
 
 class AssessmentSessionSingleChoiceList extends StatelessWidget {
@@ -102,3 +102,4 @@ class AssessmentSessionTrueFalseList extends StatelessWidget {
     );
   }
 }
+

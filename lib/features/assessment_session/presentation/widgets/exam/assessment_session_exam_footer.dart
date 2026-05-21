@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/text_styles.dart';
-import '../../../../core/helpers/spacing.dart';
-import '../../data/models/assessment_session_models.dart';
-import '../../logic/assessment_session_cubit.dart';
-import 'assessment_session_file_upload_card.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/text_styles.dart';
+import '../../../../../core/helpers/spacing.dart';
+import '../../../data/models/assessment_session_models.dart';
+import '../../../logic/assessment_session_cubit.dart';
+import '../question/assessment_session_file_upload_card.dart';
 
 class AssessmentSessionExamFooter extends StatelessWidget {
   final AssessmentSessionViewData viewData;

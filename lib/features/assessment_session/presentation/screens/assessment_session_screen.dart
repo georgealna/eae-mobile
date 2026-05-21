@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/assessment_session_exam_content.dart';
+import '../widgets/exam/assessment_session_exam_content.dart';
 
 class AssessmentSessionScreen extends StatelessWidget {
   const AssessmentSessionScreen({super.key});

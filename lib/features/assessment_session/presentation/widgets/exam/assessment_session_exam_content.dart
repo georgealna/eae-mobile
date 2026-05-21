@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/text_styles.dart';
-import '../../../../core/helpers/spacing.dart';
-import '../../data/models/assessment_session_models.dart';
-import '../../logic/assessment_session_cubit.dart';
-import '../widgets/assessment_session_exam_footer.dart';
-import '../widgets/assessment_session_exam_navigation.dart';
-import '../widgets/assessment_session_exam_timer_chip.dart';
-import '../widgets/assessment_session_header.dart';
-import '../widgets/assessment_session_question_card.dart';
+import '../../../../../core/constants/app_strings.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/text_styles.dart';
+import '../../../../../core/helpers/spacing.dart';
+import '../../../data/models/assessment_session_models.dart';
+import '../../../logic/assessment_session_cubit.dart';
+import 'assessment_session_exam_footer.dart';
+import 'assessment_session_exam_navigation.dart';
+import 'assessment_session_exam_timer_chip.dart';
+import 'assessment_session_header.dart';
+import '../question/assessment_session_question_card.dart';
+import '../../screens/assessment_session_submission_screen.dart';
 
 class AssessmentSessionExamContent extends StatefulWidget {
   const AssessmentSessionExamContent({super.key});
@@ -25,6 +26,7 @@ class AssessmentSessionExamContent extends StatefulWidget {
 class _AssessmentSessionExamContentState
     extends State<AssessmentSessionExamContent> {
   bool _hasShownOneMinuteWarning = false;
+  bool _hasNavigatedAfterSubmit = false;
 
   Future<void> _showSubmitWarningDialog(
     BuildContext context,
@@ -271,6 +273,22 @@ class _AssessmentSessionExamContentState
     state.maybeWhen(
       ready: (viewData) {
         if (viewData.isSubmitted) {
+          if (!_hasNavigatedAfterSubmit) {
+            _hasNavigatedAfterSubmit = true;
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!context.mounted) {
+                return;
+              }
+
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (_) =>
+                      AssessmentSessionSubmissionScreen(viewData: viewData),
+                ),
+              );
+            });
+          }
+
           return;
         }
 
@@ -285,71 +303,6 @@ class _AssessmentSessionExamContentState
         }
       },
       orElse: () {},
-    );
-  }
-
-  Widget _buildSubmittedView(
-    BuildContext context,
-    AssessmentSessionViewData viewData,
-  ) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w),
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(24.w),
-          decoration: BoxDecoration(
-            color: AppColors.primaryColor5,
-            borderRadius: BorderRadius.circular(24.r),
-            border: Border.all(color: AppColors.tertiaryColor2),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 68.w,
-                height: 68.w,
-                decoration: BoxDecoration(
-                  color: AppColors.secondaryColor.withValues(alpha: 0.12),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.verified_rounded,
-                  size: 34.sp,
-                  color: AppColors.secondaryColor7,
-                ),
-              ),
-              verticalSpace(18),
-              Text(
-                'Exam submitted',
-                style: AppTextStyles.font32DarkGreyMedium.copyWith(
-                  color: AppColors.primaryColor9,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              verticalSpace(10),
-              Text(
-                viewData.autoSubmitted
-                    ? 'Time expired, so the system submitted your exam automatically.'
-                    : 'Your exam has been submitted successfully.',
-                textAlign: TextAlign.center,
-                style: AppTextStyles.font12DarkGreySemiBold.copyWith(
-                  color: AppColors.tertiaryColor6,
-                  height: 1.5,
-                ),
-              ),
-              verticalSpace(18),
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () => Navigator.of(context).maybePop(),
-                  child: const Text('Return'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
@@ -514,10 +467,6 @@ class _AssessmentSessionExamContentState
 
             if (viewData == null) {
               return const Center(child: CircularProgressIndicator());
-            }
-
-            if (viewData.isSubmitted) {
-              return _buildSubmittedView(context, viewData);
             }
 
             return _buildExamView(context, viewData);

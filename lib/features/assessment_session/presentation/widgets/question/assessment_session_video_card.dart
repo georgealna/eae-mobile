@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/text_styles.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/text_styles.dart';
 
 class AssessmentSessionVideoCard extends StatelessWidget {
   final String recordingTime;
@@ -154,3 +154,4 @@ class AssessmentSessionVideoCard extends StatelessWidget {
     );
   }
 }
+
