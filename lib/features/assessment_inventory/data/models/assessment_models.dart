@@ -71,3 +71,21 @@ class AssessmentHistoryItem {
     required this.duration,
   });
 }
+
+class AvailableAssessment {
+  final String title;
+  final String badgeLabel;
+  final String durationLabel;
+  final String description;
+  final String difficultyLabel;
+  final String sectionsLabel;
+
+  const AvailableAssessment({
+    required this.title,
+    required this.badgeLabel,
+    required this.durationLabel,
+    required this.description,
+    required this.difficultyLabel,
+    required this.sectionsLabel,
+  });
+}

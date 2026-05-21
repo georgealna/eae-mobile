@@ -47,7 +47,7 @@ class AssessmentActiveSection extends StatelessWidget {
         AssessmentActiveCard(
           assessment: primaryAssessment,
           onActionTap: () =>
-              context.pushNamed(Routes.forensicsCheckpointScreen),
+              context.pushNamed(Routes.assessmentSelectionScreen),
         ),
         verticalSpace(14),
         AssessmentSecondaryCard(assessment: secondaryAssessment),

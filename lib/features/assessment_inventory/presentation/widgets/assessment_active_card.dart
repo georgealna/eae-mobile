@@ -79,7 +79,7 @@ class AssessmentActiveCard extends StatelessWidget {
                 ],
               ),
               _ActionButton(
-                label: assessment.actionLabel,
+                label: AppStrings.showMore,
                 isPrimary: assessment.isPrimaryAction,
                 onTap: onActionTap,
               ),

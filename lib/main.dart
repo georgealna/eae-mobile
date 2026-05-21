@@ -15,9 +15,9 @@ import 'eae_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await AppSharedPreferences().init();
   await setupGetit();
   await ScreenUtil.ensureScreenSize();
-  await AppSharedPreferences().init();
   Bloc.observer = MyBlocObserver();
 
   AppStrings.currentLanguage =

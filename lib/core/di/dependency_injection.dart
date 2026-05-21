@@ -2,14 +2,15 @@ import 'package:dio/dio.dart';
 
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/logic/login_cubit.dart';
 import '../../features/assessment_inventory/logic/assessment_inventory_cubit.dart';
 import '../../features/assessment_setup/logic/assessment_setup_cubit.dart';
+import '../../features/assessment_session/logic/assessment_session_cubit.dart';
 import '../../features/forensics_checkpoint/logic/forensics_checkpoint_cubit.dart';
 import '../../features/secure_access/logic/secure_access_cubit.dart';
 import '../../features/splash/logic/splash_cubit.dart';
+import '../helpers/app_shared_preferences.dart';
 import '../networking/api_services_impl.dart';
 import '../networking/network_info.dart';
 
@@ -44,6 +45,10 @@ Future<void> setupGetit() async {
   // cubit
   getIt.registerFactory<AssessmentSetupCubit>(() => AssessmentSetupCubit());
 
+  // //! feature - competency task
+  // cubit
+  getIt.registerFactory<AssessmentSessionCubit>(() => AssessmentSessionCubit());
+
   //! Core
 
   getIt.registerLazySingleton<NetworkInfo>(
@@ -51,11 +56,10 @@ Future<void> setupGetit() async {
   );
 
   getIt.registerLazySingleton(() => ApiServicesImpl());
+  getIt.registerSingleton<AppSharedPreferences>(AppSharedPreferences());
 
   //! External
 
-  final sharedPreference = await SharedPreferences.getInstance();
-  getIt.registerLazySingleton(() => sharedPreference);
   getIt.registerLazySingleton(() => Dio());
   getIt.registerLazySingleton(() => InternetConnectionChecker.createInstance());
 }

@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_styles.dart';
+import '../../../../core/helpers/extentions.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/routing/routes.dart';
 import '../../../../features/bottom_nav/presentation/widgets/bottom_nav_bar.dart';
 import '../../logic/assessment_setup_cubit.dart';
 import '../widgets/assessment_overview_card.dart';
@@ -109,6 +111,8 @@ class _AssessmentSetupView extends StatelessWidget {
                   _ActionButton(
                     label: viewData.actionLabel,
                     enabled: isAcknowledged,
+                    onTap: () =>
+                        context.pushNamed(Routes.assessmentSessionScreen),
                   ),
                   verticalSpace(12),
                   AssessmentSetupFooter(
@@ -130,8 +134,13 @@ class _AssessmentSetupView extends StatelessWidget {
 class _ActionButton extends StatelessWidget {
   final String label;
   final bool enabled;
+  final VoidCallback onTap;
 
-  const _ActionButton({required this.label, required this.enabled});
+  const _ActionButton({
+    required this.label,
+    required this.enabled,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +159,7 @@ class _ActionButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.r),
         child: InkWell(
           borderRadius: BorderRadius.circular(12.r),
-          onTap: enabled ? () {} : null,
+          onTap: enabled ? onTap : null,
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
