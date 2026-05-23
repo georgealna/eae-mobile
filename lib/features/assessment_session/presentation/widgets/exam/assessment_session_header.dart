@@ -12,58 +12,58 @@ class AssessmentSessionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          fit: FlexFit.loose,
-          child: Row(
-            children: [
-              Container(
-                width: 32.w,
-                height: 32.w,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryColor9,
-                  borderRadius: BorderRadius.circular(10.r),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isCompact = constraints.maxWidth < 520;
+
+        final titleBlock = Row(
+          children: [
+            Container(
+              width: 32.w,
+              height: 32.w,
+              decoration: BoxDecoration(
+                color: AppColors.primaryColor9,
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.shield_outlined,
+                  color: AppColors.neutralColor,
+                  size: 18.sp,
                 ),
-                child: Center(
-                  child: Icon(
-                    Icons.shield_outlined,
-                    color: AppColors.neutralColor,
-                    size: 18.sp,
+              ),
+            ),
+            SizedBox(width: 10.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    title,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: AppTextStyles.font12DarkGreySemiBold.copyWith(
+                      color: AppColors.primaryColor9,
+                      letterSpacing: 0.6,
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(width: 10.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      title,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: AppTextStyles.font12DarkGreySemiBold.copyWith(
-                        color: AppColors.primaryColor9,
-                        letterSpacing: 0.6,
-                      ),
+                  verticalSpace(2),
+                  Text(
+                    'Enterprise exam workspace',
+                    style: AppTextStyles.font10DarkGreyRegular.copyWith(
+                      color: AppColors.tertiaryColor6,
+                      letterSpacing: 0.4,
                     ),
-                    verticalSpace(2),
-                    Text(
-                      'Enterprise exam workspace',
-                      style: AppTextStyles.font10DarkGreyRegular.copyWith(
-                        color: AppColors.tertiaryColor6,
-                        letterSpacing: 0.4,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        Row(
+            ),
+          ],
+        );
+
+        final statusBlock = Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
@@ -73,6 +73,7 @@ class AssessmentSessionHeader extends StatelessWidget {
                 border: Border.all(color: AppColors.primaryColor6),
               ),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     Icons.sync_rounded,
@@ -107,9 +108,23 @@ class AssessmentSessionHeader extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ],
+        );
+
+        if (isCompact) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [titleBlock, verticalSpace(12), statusBlock],
+          );
+        }
+
+        return Row(
+          children: [
+            Expanded(child: titleBlock),
+            horizontalSpace(12),
+            Flexible(fit: FlexFit.loose, child: statusBlock),
+          ],
+        );
+      },
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,7 +8,6 @@ import '../../../../core/constants/text_styles.dart';
 import '../../../../core/helpers/extentions.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
-import '../../../../features/bottom_nav/presentation/widgets/bottom_nav_bar.dart';
 import '../../logic/assessment_setup_cubit.dart';
 import '../widgets/assessment_overview_card.dart';
 import '../widgets/assessment_precheck_card.dart';
@@ -33,20 +32,6 @@ class _AssessmentSetupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.neutralColor,
-      bottomNavigationBar: EaeBottomNavBar(
-        currentIndex: 0,
-        onTap: (index) {
-          if (index == 1) {
-            context.pushReplacementNamed(Routes.analyticsScreen);
-          }
-        },
-        items: const [
-          EaeBottomNavItem(label: 'DASHBOARD', icon: Icons.dashboard_outlined),
-          EaeBottomNavItem(label: 'ANALYTICS', icon: Icons.analytics_outlined),
-          EaeBottomNavItem(label: 'SETTINGS', icon: Icons.settings_outlined),
-        ],
-      ),
       body: SafeArea(
         child: BlocBuilder<AssessmentSetupCubit, AssessmentSetupState>(
           builder: (context, state) {
@@ -115,8 +100,9 @@ class _AssessmentSetupView extends StatelessWidget {
                   _ActionButton(
                     label: viewData.actionLabel,
                     enabled: isAcknowledged,
-                    onTap: () =>
-                        context.pushNamed(Routes.assessmentSessionScreen),
+                    onTap: () => context.pushReplacementNamed(
+                      Routes.assessmentSessionScreen,
+                    ),
                   ),
                   verticalSpace(12),
                   AssessmentSetupFooter(

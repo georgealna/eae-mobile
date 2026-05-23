@@ -18,62 +18,68 @@ class EaeBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
-      decoration: BoxDecoration(
-        color: AppColors.neutralColor,
-        border: Border(top: BorderSide(color: AppColors.tertiaryColor2)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(items.length, (index) {
-          final item = items[index];
-          final isActive = index == currentIndex;
-          return Expanded(
-            child: InkWell(
-              onTap: () => onTap(index),
-              borderRadius: BorderRadius.circular(12.r),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 6.h),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      item.icon,
-                      size: 22.sp,
-                      color: isActive
-                          ? AppColors.primaryColor9
-                          : AppColors.tertiaryColor6,
+    return Material(
+      color: AppColors.neutralColor,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: AppColors.neutralColor,
+          border: Border(top: BorderSide(color: AppColors.tertiaryColor2)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: List.generate(items.length, (index) {
+            final item = items[index];
+            final isActive = index == currentIndex;
+            return Expanded(
+              child: InkWell(
+                onTap: () => onTap(index),
+                borderRadius: BorderRadius.circular(12.r),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: 64.h),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          item.icon,
+                          size: 22.sp,
+                          color: isActive
+                              ? AppColors.primaryColor9
+                              : AppColors.tertiaryColor6,
+                        ),
+                        SizedBox(height: 6.h),
+                        Text(
+                          item.label,
+                          style: AppTextStyles.font10DarkGreyRegular.copyWith(
+                            color: isActive
+                                ? AppColors.primaryColor9
+                                : AppColors.tertiaryColor6,
+                            fontWeight: isActive
+                                ? FontWeight.w700
+                                : FontWeight.w500,
+                            letterSpacing: 0.8,
+                          ),
+                        ),
+                        SizedBox(height: 6.h),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          width: isActive ? 20.w : 0,
+                          height: 3.h,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor9,
+                            borderRadius: BorderRadius.circular(6.r),
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 6.h),
-                    Text(
-                      item.label,
-                      style: AppTextStyles.font10DarkGreyRegular.copyWith(
-                        color: isActive
-                            ? AppColors.primaryColor9
-                            : AppColors.tertiaryColor6,
-                        fontWeight: isActive
-                            ? FontWeight.w700
-                            : FontWeight.w500,
-                        letterSpacing: 0.8,
-                      ),
-                    ),
-                    SizedBox(height: 6.h),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      width: isActive ? 20.w : 0,
-                      height: 3.h,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor9,
-                        borderRadius: BorderRadius.circular(6.r),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
     );
   }

@@ -1,9 +1,7 @@
 ﻿import 'package:eae_mobile/core/di/dependency_injection.dart';
 import 'package:eae_mobile/features/analytics/logic/analytics_cubit.dart';
 import 'package:eae_mobile/features/assessment_inventory/logic/assessment_inventory_cubit.dart';
-import 'package:eae_mobile/features/assessment_inventory/presentation/screens/assessment_inventory_screen.dart';
 import 'package:eae_mobile/features/assessment_inventory/presentation/screens/assessment_selection_screen.dart';
-import 'package:eae_mobile/features/analytics/presentation/screens/analytics_screen.dart';
 import 'package:eae_mobile/features/auth/logic/login_cubit.dart';
 import 'package:eae_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:eae_mobile/features/assessment_setup/logic/assessment_setup_cubit.dart';
@@ -12,6 +10,8 @@ import 'package:eae_mobile/features/assessment_session/logic/assessment_session_
 import 'package:eae_mobile/features/assessment_session/presentation/screens/assessment_session_screen.dart';
 import 'package:eae_mobile/features/forensics_checkpoint/logic/forensics_checkpoint_cubit.dart';
 import 'package:eae_mobile/features/forensics_checkpoint/presentation/screens/forensics_checkpoint_screen.dart';
+import 'package:eae_mobile/features/bottom_nav/presentation/screens/main_navigation_shell.dart';
+import 'package:eae_mobile/features/settings/logic/settings_cubit.dart';
 import 'package:eae_mobile/features/splash/logic/splash_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,17 +49,43 @@ class AppRouter {
 
       case Routes.assessmentInventoryScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<AssessmentInventoryCubit>(),
-            child: const AssessmentInventoryScreen(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<AssessmentInventoryCubit>(),
+              ),
+              BlocProvider(create: (context) => getIt<AnalyticsCubit>()),
+              BlocProvider(create: (context) => getIt<SettingsCubit>()),
+            ],
+            child: const MainNavigationShell(initialIndex: 0),
           ),
         );
 
       case Routes.analyticsScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<AnalyticsCubit>(),
-            child: const AnalyticsScreen(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<AssessmentInventoryCubit>(),
+              ),
+              BlocProvider(create: (context) => getIt<AnalyticsCubit>()),
+              BlocProvider(create: (context) => getIt<SettingsCubit>()),
+            ],
+            child: const MainNavigationShell(initialIndex: 1),
+          ),
+        );
+
+      case Routes.settingsScreen:
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<AssessmentInventoryCubit>(),
+              ),
+              BlocProvider(create: (context) => getIt<AnalyticsCubit>()),
+              BlocProvider(create: (context) => getIt<SettingsCubit>()),
+            ],
+            child: const MainNavigationShell(initialIndex: 2),
           ),
         );
 

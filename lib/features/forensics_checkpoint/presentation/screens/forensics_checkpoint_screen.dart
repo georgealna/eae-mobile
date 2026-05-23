@@ -6,8 +6,8 @@ import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_styles.dart';
 import '../../../../core/helpers/extentions.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/public_widgets/loading_widget.dart';
 import '../../../../core/routing/routes.dart';
-import '../../../../features/bottom_nav/presentation/widgets/bottom_nav_bar.dart';
 import '../../logic/forensics_checkpoint_cubit.dart';
 import '../widgets/forensics_audit_section.dart';
 import '../widgets/forensics_footer_stats.dart';
@@ -32,19 +32,6 @@ class _ForensicsCheckpointView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.neutralColor,
-      bottomNavigationBar: EaeBottomNavBar(
-        currentIndex: 0,
-        onTap: (index) {
-          if (index == 1) {
-            context.pushReplacementNamed(Routes.analyticsScreen);
-          }
-        },
-        items: const [
-          EaeBottomNavItem(label: 'DASHBOARD', icon: Icons.dashboard_outlined),
-          EaeBottomNavItem(label: 'ANALYTICS', icon: Icons.analytics_outlined),
-          EaeBottomNavItem(label: 'SETTINGS', icon: Icons.settings_outlined),
-        ],
-      ),
       body: SafeArea(
         child: BlocBuilder<ForensicsCheckpointCubit, ForensicsCheckpointState>(
           builder: (context, state) {
@@ -54,7 +41,7 @@ class _ForensicsCheckpointView extends StatelessWidget {
             );
 
             if (viewData == null) {
-              return const Center(child: CircularProgressIndicator());
+              return const LoadingWidget();
             }
 
             return SingleChildScrollView(
