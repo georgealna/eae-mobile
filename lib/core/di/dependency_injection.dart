@@ -5,6 +5,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../features/auth/logic/login_cubit.dart';
 import '../../features/assessment_inventory/logic/assessment_inventory_cubit.dart';
+import '../../features/analytics/logic/analytics_cubit.dart';
 import '../../features/assessment_setup/logic/assessment_setup_cubit.dart';
 import '../../features/assessment_session/logic/assessment_session_cubit.dart';
 import '../../features/forensics_checkpoint/logic/forensics_checkpoint_cubit.dart';
@@ -34,6 +35,10 @@ Future<void> setupGetit() async {
   getIt.registerFactory<AssessmentInventoryCubit>(
     () => AssessmentInventoryCubit(),
   );
+
+  // //! feature - analytics
+  // cubit
+  getIt.registerFactory<AnalyticsCubit>(() => AnalyticsCubit());
 
   // //! feature - forensics checkpoint
   // cubit

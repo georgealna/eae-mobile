@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'assessment_session_cubit.dart';
+part of 'analytics_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,21 +12,15 @@ part of 'assessment_session_cubit.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$AssessmentSessionState implements DiagnosticableTreeMixin {
+mixin _$AnalyticsState {
 
 
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'AssessmentSessionState'))
-    ;
-}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AssessmentSessionState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnalyticsState);
 }
 
 
@@ -34,21 +28,21 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'AssessmentSessionState()';
+String toString() {
+  return 'AnalyticsState()';
 }
 
 
 }
 
 /// @nodoc
-class $AssessmentSessionStateCopyWith<$Res>  {
-$AssessmentSessionStateCopyWith(AssessmentSessionState _, $Res Function(AssessmentSessionState) __);
+class $AnalyticsStateCopyWith<$Res>  {
+$AnalyticsStateCopyWith(AnalyticsState _, $Res Function(AnalyticsState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [AssessmentSessionState].
-extension AssessmentSessionStatePatterns on AssessmentSessionState {
+/// Adds pattern-matching-related methods to [AnalyticsState].
+extension AnalyticsStatePatterns on AnalyticsState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -128,7 +122,7 @@ return ready(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( AssessmentSessionViewData viewData)?  ready,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( AnalyticsViewData viewData)?  ready,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Loading() when loading != null:
 return loading();case _Ready() when ready != null:
@@ -150,7 +144,7 @@ return ready(_that.viewData);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( AssessmentSessionViewData viewData)  ready,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( AnalyticsViewData viewData)  ready,}) {final _that = this;
 switch (_that) {
 case _Loading():
 return loading();case _Ready():
@@ -171,7 +165,7 @@ return ready(_that.viewData);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( AssessmentSessionViewData viewData)?  ready,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( AnalyticsViewData viewData)?  ready,}) {final _that = this;
 switch (_that) {
 case _Loading() when loading != null:
 return loading();case _Ready() when ready != null:
@@ -186,7 +180,7 @@ return ready(_that.viewData);case _:
 /// @nodoc
 
 
-class _Loading with DiagnosticableTreeMixin implements AssessmentSessionState {
+class _Loading implements AnalyticsState {
   const _Loading();
   
 
@@ -194,12 +188,6 @@ class _Loading with DiagnosticableTreeMixin implements AssessmentSessionState {
 
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'AssessmentSessionState.loading'))
-    ;
-}
 
 @override
 bool operator ==(Object other) {
@@ -211,8 +199,8 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'AssessmentSessionState.loading()';
+String toString() {
+  return 'AnalyticsState.loading()';
 }
 
 
@@ -224,25 +212,19 @@ String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
 /// @nodoc
 
 
-class _Ready with DiagnosticableTreeMixin implements AssessmentSessionState {
+class _Ready implements AnalyticsState {
   const _Ready({required this.viewData});
   
 
- final  AssessmentSessionViewData viewData;
+ final  AnalyticsViewData viewData;
 
-/// Create a copy of AssessmentSessionState
+/// Create a copy of AnalyticsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 _$ReadyCopyWith<_Ready> get copyWith => __$ReadyCopyWithImpl<_Ready>(this, _$identity);
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'AssessmentSessionState.ready'))
-    ..add(DiagnosticsProperty('viewData', viewData));
-}
 
 @override
 bool operator ==(Object other) {
@@ -254,19 +236,19 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,viewData);
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'AssessmentSessionState.ready(viewData: $viewData)';
+String toString() {
+  return 'AnalyticsState.ready(viewData: $viewData)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ReadyCopyWith<$Res> implements $AssessmentSessionStateCopyWith<$Res> {
+abstract mixin class _$ReadyCopyWith<$Res> implements $AnalyticsStateCopyWith<$Res> {
   factory _$ReadyCopyWith(_Ready value, $Res Function(_Ready) _then) = __$ReadyCopyWithImpl;
 @useResult
 $Res call({
- AssessmentSessionViewData viewData
+ AnalyticsViewData viewData
 });
 
 
@@ -281,12 +263,12 @@ class __$ReadyCopyWithImpl<$Res>
   final _Ready _self;
   final $Res Function(_Ready) _then;
 
-/// Create a copy of AssessmentSessionState
+/// Create a copy of AnalyticsState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? viewData = null,}) {
   return _then(_Ready(
 viewData: null == viewData ? _self.viewData : viewData // ignore: cast_nullable_to_non_nullable
-as AssessmentSessionViewData,
+as AnalyticsViewData,
   ));
 }
 

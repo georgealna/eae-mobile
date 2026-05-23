@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_styles.dart';
+import '../../../../core/helpers/extentions.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/routing/routes.dart';
 import '../../../../features/bottom_nav/presentation/widgets/bottom_nav_bar.dart';
 import '../../logic/assessment_inventory_cubit.dart';
 import '../widgets/assessment_active_section.dart';
@@ -32,7 +34,11 @@ class _AssessmentInventoryView extends StatelessWidget {
       backgroundColor: AppColors.neutralColor,
       bottomNavigationBar: EaeBottomNavBar(
         currentIndex: 0,
-        onTap: (_) {},
+        onTap: (index) {
+          if (index == 1) {
+            context.pushReplacementNamed(Routes.analyticsScreen);
+          }
+        },
         items: const [
           EaeBottomNavItem(label: 'DASHBOARD', icon: Icons.dashboard_outlined),
           EaeBottomNavItem(label: 'ANALYTICS', icon: Icons.analytics_outlined),

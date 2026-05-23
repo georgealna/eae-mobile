@@ -457,20 +457,27 @@ class _AssessmentSessionExamContentState
     return Scaffold(
       backgroundColor: AppColors.neutralColor,
       body: SafeArea(
-        child: BlocConsumer<AssessmentSessionCubit, AssessmentSessionState>(
-          listener: _handleStateChange,
-          builder: (context, state) {
-            final viewData = state.maybeWhen(
-              ready: (viewData) => viewData,
-              orElse: () => null,
-            );
+        child: Column(
+          children: [
+            Expanded(
+              child:
+                  BlocConsumer<AssessmentSessionCubit, AssessmentSessionState>(
+                    listener: _handleStateChange,
+                    builder: (context, state) {
+                      final viewData = state.maybeWhen(
+                        ready: (viewData) => viewData,
+                        orElse: () => null,
+                      );
 
-            if (viewData == null) {
-              return const Center(child: CircularProgressIndicator());
-            }
+                      if (viewData == null) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
 
-            return _buildExamView(context, viewData);
-          },
+                      return _buildExamView(context, viewData);
+                    },
+                  ),
+            ),
+          ],
         ),
       ),
     );

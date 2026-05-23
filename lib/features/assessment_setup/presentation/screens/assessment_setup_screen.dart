@@ -36,7 +36,11 @@ class _AssessmentSetupView extends StatelessWidget {
       backgroundColor: AppColors.neutralColor,
       bottomNavigationBar: EaeBottomNavBar(
         currentIndex: 0,
-        onTap: (_) {},
+        onTap: (index) {
+          if (index == 1) {
+            context.pushReplacementNamed(Routes.analyticsScreen);
+          }
+        },
         items: const [
           EaeBottomNavItem(label: 'DASHBOARD', icon: Icons.dashboard_outlined),
           EaeBottomNavItem(label: 'ANALYTICS', icon: Icons.analytics_outlined),
