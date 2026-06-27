@@ -3,7 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import '../../features/auth/logic/login_cubit.dart';
+import '../../features/auth/data/datasources/auth_remote_data_source.dart';
+import '../../features/auth/data/repos/auth_repo.dart';
+import '../../features/auth/logic/login/login_cubit.dart';
 import '../../features/assessment_inventory/logic/assessment_inventory_cubit.dart';
 import '../../features/analytics/logic/analytics_cubit.dart';
 import '../../features/settings/logic/settings_cubit.dart';
@@ -28,8 +30,18 @@ Future<void> setupGetit() async {
   getIt.registerFactory<SecureAccessCubit>(() => SecureAccessCubit());
 
   // //! feature - auth
+  // datasource
+  getIt.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(apiServicesImpl: getIt()),
+  );
+  // repo
+  getIt.registerLazySingleton<AuthRepo>(
+    () => AuthRepo(authRemoteDataSource: getIt(), networkInfo: getIt()),
+  );
   // cubit
-  getIt.registerFactory<LoginCubit>(() => LoginCubit());
+  getIt.registerFactory<LoginCubit>(
+    () => LoginCubit(authRepo: getIt()),
+  );
 
   // //! feature - assessment inventory
   // cubit

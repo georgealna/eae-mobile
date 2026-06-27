@@ -1,8 +1,8 @@
-﻿import 'package:eae_mobile/core/di/dependency_injection.dart';
+import 'package:eae_mobile/core/di/dependency_injection.dart';
 import 'package:eae_mobile/features/analytics/logic/analytics_cubit.dart';
 import 'package:eae_mobile/features/assessment_inventory/logic/assessment_inventory_cubit.dart';
 import 'package:eae_mobile/features/assessment_inventory/presentation/screens/assessment_selection_screen.dart';
-import 'package:eae_mobile/features/auth/logic/login_cubit.dart';
+import 'package:eae_mobile/features/auth/logic/login/login_cubit.dart';
 import 'package:eae_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:eae_mobile/features/assessment_setup/logic/assessment_setup_cubit.dart';
 import 'package:eae_mobile/features/assessment_setup/presentation/screens/assessment_setup_screen.dart';

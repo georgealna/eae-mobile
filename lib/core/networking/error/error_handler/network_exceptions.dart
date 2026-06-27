@@ -53,6 +53,9 @@ abstract class NetworkExceptions with _$NetworkExceptions implements Exception {
 
   const factory NetworkExceptions.unexpectedError() = UnexpectedError;
 
+  const factory NetworkExceptions.tooManyAttempts(int retryAfterSeconds) =
+      TooManyAttempts;
+
   static List<NetworkExceptions> getAllNetworkExceptions() {
     return [
       const NetworkExceptions.badRequest(),
@@ -110,6 +113,19 @@ abstract class NetworkExceptions with _$NetworkExceptions implements Exception {
         return const NetworkExceptions.requestTimeout();
       case 422:
         return NetworkExceptions.unprocessableEntity("$response");
+      case 429:
+        {
+          final data = response?.data;
+          int retryAfter = 950;
+          try {
+            final Map<String, dynamic> body =
+                data is String ? jsonDecode(data) : (data as Map<String, dynamic>);
+            final errorNode = body['error'] as Map<String, dynamic>?;
+            retryAfter =
+                (errorNode?['retry_after_seconds'] as num?)?.toInt() ?? 950;
+          } catch (_) {}
+          return NetworkExceptions.tooManyAttempts(retryAfter);
+        }
       case 500:
         return const NetworkExceptions.internalServerError();
       case 503:

@@ -6,7 +6,7 @@ import '../../../../core/constants/colors.dart';
 import '../../../../core/helpers/extentions.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
-import '../../logic/login_cubit.dart';
+import '../../logic/login/login_cubit.dart';
 import '../widgets/login_card.dart';
 import '../widgets/login_footer.dart';
 import '../widgets/login_hero.dart';

@@ -55,7 +55,7 @@ extension NetworkExceptionsPatterns on NetworkExceptions {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RequestCancelled value)?  requestCancelled,TResult Function( FireBaseAuthException value)?  firebaseAuthException,TResult Function( FireBaseException value)?  firebaseException,TResult Function( UnauthorizedRequest value)?  unauthorizedRequest,TResult Function( LoggingInRequired value)?  loggingInRequired,TResult Function( BadRequest value)?  badRequest,TResult Function( NotFound value)?  notFound,TResult Function( MethodNotAllowed value)?  methodNotAllowed,TResult Function( NotAcceptable value)?  notAcceptable,TResult Function( RequestTimeout value)?  requestTimeout,TResult Function( SendTimeout value)?  sendTimeout,TResult Function( UnprocessableEntity value)?  unprocessableEntity,TResult Function( Conflict value)?  conflict,TResult Function( InternalServerError value)?  internalServerError,TResult Function( NotImplemented value)?  notImplemented,TResult Function( ServiceUnavailable value)?  serviceUnavailable,TResult Function( NoInternetConnection value)?  noInternetConnection,TResult Function( FormatException value)?  formatException,TResult Function( UnableToProcess value)?  unableToProcess,TResult Function( DefaultError value)?  defaultError,TResult Function( UnexpectedError value)?  unexpectedError,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RequestCancelled value)?  requestCancelled,TResult Function( FireBaseAuthException value)?  firebaseAuthException,TResult Function( FireBaseException value)?  firebaseException,TResult Function( UnauthorizedRequest value)?  unauthorizedRequest,TResult Function( LoggingInRequired value)?  loggingInRequired,TResult Function( BadRequest value)?  badRequest,TResult Function( NotFound value)?  notFound,TResult Function( MethodNotAllowed value)?  methodNotAllowed,TResult Function( NotAcceptable value)?  notAcceptable,TResult Function( RequestTimeout value)?  requestTimeout,TResult Function( SendTimeout value)?  sendTimeout,TResult Function( UnprocessableEntity value)?  unprocessableEntity,TResult Function( Conflict value)?  conflict,TResult Function( InternalServerError value)?  internalServerError,TResult Function( NotImplemented value)?  notImplemented,TResult Function( ServiceUnavailable value)?  serviceUnavailable,TResult Function( NoInternetConnection value)?  noInternetConnection,TResult Function( FormatException value)?  formatException,TResult Function( UnableToProcess value)?  unableToProcess,TResult Function( DefaultError value)?  defaultError,TResult Function( UnexpectedError value)?  unexpectedError,TResult Function( TooManyAttempts value)?  tooManyAttempts,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case RequestCancelled() when requestCancelled != null:
@@ -79,7 +79,8 @@ return noInternetConnection(_that);case FormatException() when formatException !
 return formatException(_that);case UnableToProcess() when unableToProcess != null:
 return unableToProcess(_that);case DefaultError() when defaultError != null:
 return defaultError(_that);case UnexpectedError() when unexpectedError != null:
-return unexpectedError(_that);case _:
+return unexpectedError(_that);case TooManyAttempts() when tooManyAttempts != null:
+return tooManyAttempts(_that);case _:
   return orElse();
 
 }
@@ -97,7 +98,7 @@ return unexpectedError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RequestCancelled value)  requestCancelled,required TResult Function( FireBaseAuthException value)  firebaseAuthException,required TResult Function( FireBaseException value)  firebaseException,required TResult Function( UnauthorizedRequest value)  unauthorizedRequest,required TResult Function( LoggingInRequired value)  loggingInRequired,required TResult Function( BadRequest value)  badRequest,required TResult Function( NotFound value)  notFound,required TResult Function( MethodNotAllowed value)  methodNotAllowed,required TResult Function( NotAcceptable value)  notAcceptable,required TResult Function( RequestTimeout value)  requestTimeout,required TResult Function( SendTimeout value)  sendTimeout,required TResult Function( UnprocessableEntity value)  unprocessableEntity,required TResult Function( Conflict value)  conflict,required TResult Function( InternalServerError value)  internalServerError,required TResult Function( NotImplemented value)  notImplemented,required TResult Function( ServiceUnavailable value)  serviceUnavailable,required TResult Function( NoInternetConnection value)  noInternetConnection,required TResult Function( FormatException value)  formatException,required TResult Function( UnableToProcess value)  unableToProcess,required TResult Function( DefaultError value)  defaultError,required TResult Function( UnexpectedError value)  unexpectedError,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RequestCancelled value)  requestCancelled,required TResult Function( FireBaseAuthException value)  firebaseAuthException,required TResult Function( FireBaseException value)  firebaseException,required TResult Function( UnauthorizedRequest value)  unauthorizedRequest,required TResult Function( LoggingInRequired value)  loggingInRequired,required TResult Function( BadRequest value)  badRequest,required TResult Function( NotFound value)  notFound,required TResult Function( MethodNotAllowed value)  methodNotAllowed,required TResult Function( NotAcceptable value)  notAcceptable,required TResult Function( RequestTimeout value)  requestTimeout,required TResult Function( SendTimeout value)  sendTimeout,required TResult Function( UnprocessableEntity value)  unprocessableEntity,required TResult Function( Conflict value)  conflict,required TResult Function( InternalServerError value)  internalServerError,required TResult Function( NotImplemented value)  notImplemented,required TResult Function( ServiceUnavailable value)  serviceUnavailable,required TResult Function( NoInternetConnection value)  noInternetConnection,required TResult Function( FormatException value)  formatException,required TResult Function( UnableToProcess value)  unableToProcess,required TResult Function( DefaultError value)  defaultError,required TResult Function( UnexpectedError value)  unexpectedError,required TResult Function( TooManyAttempts value)  tooManyAttempts,}){
 final _that = this;
 switch (_that) {
 case RequestCancelled():
@@ -121,7 +122,8 @@ return noInternetConnection(_that);case FormatException():
 return formatException(_that);case UnableToProcess():
 return unableToProcess(_that);case DefaultError():
 return defaultError(_that);case UnexpectedError():
-return unexpectedError(_that);case _:
+return unexpectedError(_that);case TooManyAttempts():
+return tooManyAttempts(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -138,7 +140,7 @@ return unexpectedError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RequestCancelled value)?  requestCancelled,TResult? Function( FireBaseAuthException value)?  firebaseAuthException,TResult? Function( FireBaseException value)?  firebaseException,TResult? Function( UnauthorizedRequest value)?  unauthorizedRequest,TResult? Function( LoggingInRequired value)?  loggingInRequired,TResult? Function( BadRequest value)?  badRequest,TResult? Function( NotFound value)?  notFound,TResult? Function( MethodNotAllowed value)?  methodNotAllowed,TResult? Function( NotAcceptable value)?  notAcceptable,TResult? Function( RequestTimeout value)?  requestTimeout,TResult? Function( SendTimeout value)?  sendTimeout,TResult? Function( UnprocessableEntity value)?  unprocessableEntity,TResult? Function( Conflict value)?  conflict,TResult? Function( InternalServerError value)?  internalServerError,TResult? Function( NotImplemented value)?  notImplemented,TResult? Function( ServiceUnavailable value)?  serviceUnavailable,TResult? Function( NoInternetConnection value)?  noInternetConnection,TResult? Function( FormatException value)?  formatException,TResult? Function( UnableToProcess value)?  unableToProcess,TResult? Function( DefaultError value)?  defaultError,TResult? Function( UnexpectedError value)?  unexpectedError,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RequestCancelled value)?  requestCancelled,TResult? Function( FireBaseAuthException value)?  firebaseAuthException,TResult? Function( FireBaseException value)?  firebaseException,TResult? Function( UnauthorizedRequest value)?  unauthorizedRequest,TResult? Function( LoggingInRequired value)?  loggingInRequired,TResult? Function( BadRequest value)?  badRequest,TResult? Function( NotFound value)?  notFound,TResult? Function( MethodNotAllowed value)?  methodNotAllowed,TResult? Function( NotAcceptable value)?  notAcceptable,TResult? Function( RequestTimeout value)?  requestTimeout,TResult? Function( SendTimeout value)?  sendTimeout,TResult? Function( UnprocessableEntity value)?  unprocessableEntity,TResult? Function( Conflict value)?  conflict,TResult? Function( InternalServerError value)?  internalServerError,TResult? Function( NotImplemented value)?  notImplemented,TResult? Function( ServiceUnavailable value)?  serviceUnavailable,TResult? Function( NoInternetConnection value)?  noInternetConnection,TResult? Function( FormatException value)?  formatException,TResult? Function( UnableToProcess value)?  unableToProcess,TResult? Function( DefaultError value)?  defaultError,TResult? Function( UnexpectedError value)?  unexpectedError,TResult? Function( TooManyAttempts value)?  tooManyAttempts,}){
 final _that = this;
 switch (_that) {
 case RequestCancelled() when requestCancelled != null:
@@ -162,7 +164,8 @@ return noInternetConnection(_that);case FormatException() when formatException !
 return formatException(_that);case UnableToProcess() when unableToProcess != null:
 return unableToProcess(_that);case DefaultError() when defaultError != null:
 return defaultError(_that);case UnexpectedError() when unexpectedError != null:
-return unexpectedError(_that);case _:
+return unexpectedError(_that);case TooManyAttempts() when tooManyAttempts != null:
+return tooManyAttempts(_that);case _:
   return null;
 
 }
@@ -179,7 +182,7 @@ return unexpectedError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  requestCancelled,TResult Function( String message)?  firebaseAuthException,TResult Function( String message)?  firebaseException,TResult Function( String reason)?  unauthorizedRequest,TResult Function()?  loggingInRequired,TResult Function()?  badRequest,TResult Function( String reason)?  notFound,TResult Function()?  methodNotAllowed,TResult Function()?  notAcceptable,TResult Function()?  requestTimeout,TResult Function()?  sendTimeout,TResult Function( String reason)?  unprocessableEntity,TResult Function()?  conflict,TResult Function()?  internalServerError,TResult Function()?  notImplemented,TResult Function()?  serviceUnavailable,TResult Function()?  noInternetConnection,TResult Function()?  formatException,TResult Function()?  unableToProcess,TResult Function( String error)?  defaultError,TResult Function()?  unexpectedError,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  requestCancelled,TResult Function( String message)?  firebaseAuthException,TResult Function( String message)?  firebaseException,TResult Function( String reason)?  unauthorizedRequest,TResult Function()?  loggingInRequired,TResult Function()?  badRequest,TResult Function( String reason)?  notFound,TResult Function()?  methodNotAllowed,TResult Function()?  notAcceptable,TResult Function()?  requestTimeout,TResult Function()?  sendTimeout,TResult Function( String reason)?  unprocessableEntity,TResult Function()?  conflict,TResult Function()?  internalServerError,TResult Function()?  notImplemented,TResult Function()?  serviceUnavailable,TResult Function()?  noInternetConnection,TResult Function()?  formatException,TResult Function()?  unableToProcess,TResult Function( String error)?  defaultError,TResult Function()?  unexpectedError,TResult Function( int retryAfterSeconds)?  tooManyAttempts,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case RequestCancelled() when requestCancelled != null:
 return requestCancelled();case FireBaseAuthException() when firebaseAuthException != null:
@@ -202,7 +205,8 @@ return noInternetConnection();case FormatException() when formatException != nul
 return formatException();case UnableToProcess() when unableToProcess != null:
 return unableToProcess();case DefaultError() when defaultError != null:
 return defaultError(_that.error);case UnexpectedError() when unexpectedError != null:
-return unexpectedError();case _:
+return unexpectedError();case TooManyAttempts() when tooManyAttempts != null:
+return tooManyAttempts(_that.retryAfterSeconds);case _:
   return orElse();
 
 }
@@ -220,7 +224,7 @@ return unexpectedError();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  requestCancelled,required TResult Function( String message)  firebaseAuthException,required TResult Function( String message)  firebaseException,required TResult Function( String reason)  unauthorizedRequest,required TResult Function()  loggingInRequired,required TResult Function()  badRequest,required TResult Function( String reason)  notFound,required TResult Function()  methodNotAllowed,required TResult Function()  notAcceptable,required TResult Function()  requestTimeout,required TResult Function()  sendTimeout,required TResult Function( String reason)  unprocessableEntity,required TResult Function()  conflict,required TResult Function()  internalServerError,required TResult Function()  notImplemented,required TResult Function()  serviceUnavailable,required TResult Function()  noInternetConnection,required TResult Function()  formatException,required TResult Function()  unableToProcess,required TResult Function( String error)  defaultError,required TResult Function()  unexpectedError,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  requestCancelled,required TResult Function( String message)  firebaseAuthException,required TResult Function( String message)  firebaseException,required TResult Function( String reason)  unauthorizedRequest,required TResult Function()  loggingInRequired,required TResult Function()  badRequest,required TResult Function( String reason)  notFound,required TResult Function()  methodNotAllowed,required TResult Function()  notAcceptable,required TResult Function()  requestTimeout,required TResult Function()  sendTimeout,required TResult Function( String reason)  unprocessableEntity,required TResult Function()  conflict,required TResult Function()  internalServerError,required TResult Function()  notImplemented,required TResult Function()  serviceUnavailable,required TResult Function()  noInternetConnection,required TResult Function()  formatException,required TResult Function()  unableToProcess,required TResult Function( String error)  defaultError,required TResult Function()  unexpectedError,required TResult Function( int retryAfterSeconds)  tooManyAttempts,}) {final _that = this;
 switch (_that) {
 case RequestCancelled():
 return requestCancelled();case FireBaseAuthException():
@@ -243,7 +247,8 @@ return noInternetConnection();case FormatException():
 return formatException();case UnableToProcess():
 return unableToProcess();case DefaultError():
 return defaultError(_that.error);case UnexpectedError():
-return unexpectedError();case _:
+return unexpectedError();case TooManyAttempts():
+return tooManyAttempts(_that.retryAfterSeconds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -260,7 +265,7 @@ return unexpectedError();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  requestCancelled,TResult? Function( String message)?  firebaseAuthException,TResult? Function( String message)?  firebaseException,TResult? Function( String reason)?  unauthorizedRequest,TResult? Function()?  loggingInRequired,TResult? Function()?  badRequest,TResult? Function( String reason)?  notFound,TResult? Function()?  methodNotAllowed,TResult? Function()?  notAcceptable,TResult? Function()?  requestTimeout,TResult? Function()?  sendTimeout,TResult? Function( String reason)?  unprocessableEntity,TResult? Function()?  conflict,TResult? Function()?  internalServerError,TResult? Function()?  notImplemented,TResult? Function()?  serviceUnavailable,TResult? Function()?  noInternetConnection,TResult? Function()?  formatException,TResult? Function()?  unableToProcess,TResult? Function( String error)?  defaultError,TResult? Function()?  unexpectedError,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  requestCancelled,TResult? Function( String message)?  firebaseAuthException,TResult? Function( String message)?  firebaseException,TResult? Function( String reason)?  unauthorizedRequest,TResult? Function()?  loggingInRequired,TResult? Function()?  badRequest,TResult? Function( String reason)?  notFound,TResult? Function()?  methodNotAllowed,TResult? Function()?  notAcceptable,TResult? Function()?  requestTimeout,TResult? Function()?  sendTimeout,TResult? Function( String reason)?  unprocessableEntity,TResult? Function()?  conflict,TResult? Function()?  internalServerError,TResult? Function()?  notImplemented,TResult? Function()?  serviceUnavailable,TResult? Function()?  noInternetConnection,TResult? Function()?  formatException,TResult? Function()?  unableToProcess,TResult? Function( String error)?  defaultError,TResult? Function()?  unexpectedError,TResult? Function( int retryAfterSeconds)?  tooManyAttempts,}) {final _that = this;
 switch (_that) {
 case RequestCancelled() when requestCancelled != null:
 return requestCancelled();case FireBaseAuthException() when firebaseAuthException != null:
@@ -283,7 +288,8 @@ return noInternetConnection();case FormatException() when formatException != nul
 return formatException();case UnableToProcess() when unableToProcess != null:
 return unableToProcess();case DefaultError() when defaultError != null:
 return defaultError(_that.error);case UnexpectedError() when unexpectedError != null:
-return unexpectedError();case _:
+return unexpectedError();case TooManyAttempts() when tooManyAttempts != null:
+return tooManyAttempts(_that.retryAfterSeconds);case _:
   return null;
 
 }
@@ -1166,5 +1172,71 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class TooManyAttempts implements NetworkExceptions {
+  const TooManyAttempts(this.retryAfterSeconds);
+  
+
+ final  int retryAfterSeconds;
+
+/// Create a copy of NetworkExceptions
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TooManyAttemptsCopyWith<TooManyAttempts> get copyWith => _$TooManyAttemptsCopyWithImpl<TooManyAttempts>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TooManyAttempts&&(identical(other.retryAfterSeconds, retryAfterSeconds) || other.retryAfterSeconds == retryAfterSeconds));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,retryAfterSeconds);
+
+@override
+String toString() {
+  return 'NetworkExceptions.tooManyAttempts(retryAfterSeconds: $retryAfterSeconds)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TooManyAttemptsCopyWith<$Res> implements $NetworkExceptionsCopyWith<$Res> {
+  factory $TooManyAttemptsCopyWith(TooManyAttempts value, $Res Function(TooManyAttempts) _then) = _$TooManyAttemptsCopyWithImpl;
+@useResult
+$Res call({
+ int retryAfterSeconds
+});
+
+
+
+
+}
+/// @nodoc
+class _$TooManyAttemptsCopyWithImpl<$Res>
+    implements $TooManyAttemptsCopyWith<$Res> {
+  _$TooManyAttemptsCopyWithImpl(this._self, this._then);
+
+  final TooManyAttempts _self;
+  final $Res Function(TooManyAttempts) _then;
+
+/// Create a copy of NetworkExceptions
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? retryAfterSeconds = null,}) {
+  return _then(TooManyAttempts(
+null == retryAfterSeconds ? _self.retryAfterSeconds : retryAfterSeconds // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
 
 // dart format on

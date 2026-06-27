@@ -9,10 +9,20 @@ import '../../../../core/constants/text_styles.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/public_widgets/button_widget.dart';
 import '../../../../core/public_widgets/text_field_widget.dart';
-import '../../logic/login_cubit.dart';
+import '../../logic/login/login_cubit.dart';
+
+String _formatSeconds(int totalSeconds) {
+  final minutes = totalSeconds ~/ 60;
+  final seconds = totalSeconds % 60;
+  if (minutes > 0) {
+    return '${minutes}m ${seconds.toString().padLeft(2, '0')}s';
+  }
+  return '${seconds}s';
+}
 
 class LoginCard extends StatelessWidget {
   const LoginCard({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +37,9 @@ class LoginCard extends StatelessWidget {
           error: (error) => error,
           orElse: () => null,
         );
+        final isRateLimited = state is RateLimited;
+        final rateLimitedSeconds =
+            isRateLimited ? state.remainingSeconds : 0;
 
         return Container(
           padding: EdgeInsets.all(18.r),
@@ -49,7 +62,9 @@ class LoginCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _BiometricButton(
-                  onTap: isSubmitting ? null : cubit.submitBiometric,
+                  onTap: (isSubmitting || isRateLimited)
+                      ? null
+                      : cubit.submitBiometric,
                 ),
                 verticalSpace(12),
                 Row(
@@ -126,6 +141,24 @@ class LoginCard extends StatelessWidget {
                     style: AppTextStyles.font11OrangeLowInStockSemiBold,
                   ),
                 ],
+                if (isRateLimited) ...[
+                  verticalSpace(8),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.lock_clock_outlined,
+                        size: 14.sp,
+                        color: AppColors.secondaryColor7,
+                      ),
+                      horizontalSpace(6),
+                      Text(
+                        'Too many attempts. Try again in ${_formatSeconds(rateLimitedSeconds)}',
+                        style: AppTextStyles.font11OrangeLowInStockSemiBold
+                            .copyWith(color: AppColors.secondaryColor7),
+                      ),
+                    ],
+                  ),
+                ],
                 verticalSpace(18),
                 SizedBox(
                   width: double.infinity,
@@ -157,17 +190,37 @@ class LoginCard extends StatelessWidget {
                             ),
                           ],
                         )
-                      : ButtonWidget(
-                          title: AppStrings.enterpriseSignIn,
-                          onTap: cubit.submit,
-                          width: double.infinity,
-                          height: 52.h,
-                          radius: 12.r,
-                          backgroundColor: AppColors.neutralColor,
-                          borderColor: AppColors.primaryColor8,
-                          textStyle: AppTextStyles.font14DarkGreySemiBold
-                              .copyWith(color: AppColors.primaryColor9),
-                        ),
+                      : isRateLimited
+                          ? AbsorbPointer(
+                              child: ButtonWidget(
+                                title:
+                                    'Retry in ${_formatSeconds(rateLimitedSeconds)}',
+                                onTap: () {},
+                                width: double.infinity,
+                                height: 52.h,
+                                radius: 12.r,
+                                backgroundColor:
+                                    AppColors.tertiaryColor2.withValues(
+                                  alpha: 0.6,
+                                ),
+                                borderColor: AppColors.tertiaryColor2,
+                                textStyle: AppTextStyles.font14DarkGreySemiBold
+                                    .copyWith(
+                                  color: AppColors.tertiaryColor6,
+                                ),
+                              ),
+                            )
+                          : ButtonWidget(
+                              title: AppStrings.enterpriseSignIn,
+                              onTap: () => cubit.submit(),
+                              width: double.infinity,
+                              height: 52.h,
+                              radius: 12.r,
+                              backgroundColor: AppColors.neutralColor,
+                              borderColor: AppColors.primaryColor8,
+                              textStyle: AppTextStyles.font14DarkGreySemiBold
+                                  .copyWith(color: AppColors.primaryColor9),
+                            ),
                 ),
               ],
             ),
