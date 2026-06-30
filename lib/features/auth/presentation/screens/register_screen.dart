@@ -11,25 +11,57 @@ import '../../../../core/helpers/spacing.dart';
 import '../../../../core/public_widgets/button_widget.dart';
 import '../../../../core/public_widgets/text_field_widget.dart';
 import '../../../../core/routing/routes.dart';
-import '../../logic/login/login_cubit.dart';
+import '../../logic/register/register_cubit.dart';
+import '../widgets/login_footer.dart';
+import '../widgets/login_hero.dart';
+import '../widgets/login_status_bar.dart';
 
-String _formatSeconds(int totalSeconds) {
-  final minutes = totalSeconds ~/ 60;
-  final seconds = totalSeconds % 60;
-  if (minutes > 0) {
-    return '${minutes}m ${seconds.toString().padLeft(2, '0')}s';
-  }
-  return '${seconds}s';
-}
-
-class LoginCard extends StatelessWidget {
-  const LoginCard({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocListener<RegisterCubit, RegisterState>(
+      listenWhen: (previous, current) =>
+          current.maybeWhen(success: (_) => true, orElse: () => false),
+      listener: (context, state) {
+        context.pushNamedAndRemoveUntil(
+          Routes.assessmentInventoryScreen,
+          predicate: (_) => false,
+        );
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.neutralColor,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const LoginHero(),
+                verticalSpace(24),
+                const _RegisterCard(),
+                verticalSpace(18),
+                const LoginFooter(),
+                verticalSpace(20),
+                const LoginStatusBar(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _RegisterCard extends StatelessWidget {
+  const _RegisterCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
-        final cubit = context.read<LoginCubit>();
+        final cubit = context.read<RegisterCubit>();
         final isSubmitting = state.maybeWhen(
           loading: () => true,
           orElse: () => false,
@@ -38,8 +70,6 @@ class LoginCard extends StatelessWidget {
           error: (error) => error,
           orElse: () => null,
         );
-        final isRateLimited = state is RateLimited;
-        final rateLimitedSeconds = isRateLimited ? state.remainingSeconds : 0;
 
         return Container(
           padding: EdgeInsets.all(18.r),
@@ -58,35 +88,26 @@ class LoginCard extends StatelessWidget {
           child: Form(
             key: cubit.formKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
+            onChanged: cubit.updateForm,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _BiometricButton(
-                  onTap: (isSubmitting || isRateLimited)
-                      ? null
-                      : cubit.submitBiometric,
-                ),
-                verticalSpace(12),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      Icons.verified_user_outlined,
+                      Icons.how_to_reg_outlined,
                       color: AppColors.secondaryColor7,
-                      size: 18.sp,
+                      size: 20.sp,
                     ),
                     horizontalSpace(8),
                     Text(
-                      AppStrings.biometricSecurityActive,
-                      style: AppTextStyles.font12DarkGreyLight.copyWith(
-                        color: AppColors.secondaryColor7,
-                        fontWeight: FontWeight.w600,
+                      AppStrings.acceptInvite,
+                      style: AppTextStyles.font14DarkGreySemiBold.copyWith(
+                        color: AppColors.primaryColor9,
                       ),
                     ),
                   ],
                 ),
-                verticalSpace(16),
-                const _DividerLabel(),
                 verticalSpace(16),
                 Text(
                   AppStrings.workEmail,
@@ -103,25 +124,32 @@ class LoginCard extends StatelessWidget {
                   prefixIcon: Icons.mail_outline,
                   prefixIconColor: AppColors.tertiaryColor6,
                   inputColor: AppColors.primaryColor9,
-                  // validationType: InputValidationType.email,
+                  validationType: InputValidationType.email,
                 ),
                 verticalSpace(14),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppStrings.password,
-                      style: AppTextStyles.font12DarkGreySemiBold.copyWith(
-                        color: AppColors.primaryColor9,
-                      ),
-                    ),
-                    Text(
-                      AppStrings.forgotPassword,
-                      style: AppTextStyles.font12DarkGreySemiBold.copyWith(
-                        color: AppColors.secondaryColor7,
-                      ),
-                    ),
-                  ],
+                Text(
+                  AppStrings.inviteToken,
+                  style: AppTextStyles.font12DarkGreySemiBold.copyWith(
+                    color: AppColors.primaryColor9,
+                  ),
+                ),
+                verticalSpace(8),
+                TextFieldWidget(
+                  controller: cubit.tokenController,
+                  hintText: AppStrings.inviteTokenHint,
+                  labelText: AppStrings.inviteToken,
+                  obscureText: false,
+                  prefixIcon: Icons.key_outlined,
+                  prefixIconColor: AppColors.tertiaryColor6,
+                  inputColor: AppColors.primaryColor9,
+                  validationType: InputValidationType.none,
+                ),
+                verticalSpace(14),
+                Text(
+                  AppStrings.password,
+                  style: AppTextStyles.font12DarkGreySemiBold.copyWith(
+                    color: AppColors.primaryColor9,
+                  ),
                 ),
                 verticalSpace(8),
                 TextFieldWidget(
@@ -132,31 +160,31 @@ class LoginCard extends StatelessWidget {
                   prefixIcon: Icons.lock_outline,
                   prefixIconColor: AppColors.tertiaryColor6,
                   inputColor: AppColors.primaryColor9,
-                  // validationType: InputValidationType.password,
+                  validationType: InputValidationType.password,
+                ),
+                verticalSpace(14),
+                Text(
+                  AppStrings.confirmPassword,
+                  style: AppTextStyles.font12DarkGreySemiBold.copyWith(
+                    color: AppColors.primaryColor9,
+                  ),
+                ),
+                verticalSpace(8),
+                TextFieldWidget(
+                  controller: cubit.passwordConfirmationController,
+                  hintText: AppStrings.confirmPasswordHint,
+                  labelText: AppStrings.confirmPassword,
+                  obscureText: true,
+                  prefixIcon: Icons.lock_reset_outlined,
+                  prefixIconColor: AppColors.tertiaryColor6,
+                  inputColor: AppColors.primaryColor9,
+                  validationType: InputValidationType.password,
                 ),
                 if (errorMessage != null) ...[
                   verticalSpace(8),
                   Text(
                     errorMessage,
                     style: AppTextStyles.font11OrangeLowInStockSemiBold,
-                  ),
-                ],
-                if (isRateLimited) ...[
-                  verticalSpace(8),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.lock_clock_outlined,
-                        size: 14.sp,
-                        color: AppColors.secondaryColor7,
-                      ),
-                      horizontalSpace(6),
-                      Text(
-                        'Too many attempts. Try again in ${_formatSeconds(rateLimitedSeconds)}',
-                        style: AppTextStyles.font11OrangeLowInStockSemiBold
-                            .copyWith(color: AppColors.secondaryColor7),
-                      ),
-                    ],
                   ),
                 ],
                 verticalSpace(18),
@@ -169,7 +197,7 @@ class LoginCard extends StatelessWidget {
                           children: [
                             AbsorbPointer(
                               child: ButtonWidget(
-                                title: AppStrings.enterpriseSignIn,
+                                title: AppStrings.acceptInvite,
                                 onTap: () {},
                                 width: double.infinity,
                                 height: 52.h,
@@ -190,25 +218,9 @@ class LoginCard extends StatelessWidget {
                             ),
                           ],
                         )
-                      : isRateLimited
-                      ? AbsorbPointer(
-                          child: ButtonWidget(
-                            title:
-                                'Retry in ${_formatSeconds(rateLimitedSeconds)}',
-                            onTap: () {},
-                            width: double.infinity,
-                            height: 52.h,
-                            radius: 12.r,
-                            backgroundColor: AppColors.tertiaryColor2
-                                .withValues(alpha: 0.6),
-                            borderColor: AppColors.tertiaryColor2,
-                            textStyle: AppTextStyles.font14DarkGreySemiBold
-                                .copyWith(color: AppColors.tertiaryColor6),
-                          ),
-                        )
                       : ButtonWidget(
-                          title: AppStrings.enterpriseSignIn,
-                          onTap: () => cubit.submit(),
+                          title: AppStrings.acceptInvite,
+                          onTap: cubit.submit,
                           width: double.infinity,
                           height: 52.h,
                           radius: 12.r,
@@ -221,11 +233,14 @@ class LoginCard extends StatelessWidget {
                 verticalSpace(14),
                 Center(
                   child: TextButton(
-                    onPressed: (isSubmitting || isRateLimited)
+                    onPressed: isSubmitting
                         ? null
-                        : () => context.pushNamed(Routes.registerScreen),
+                        : () => context.pushNamedAndRemoveUntil(
+                            Routes.loginScreen,
+                            predicate: (_) => false,
+                          ),
                     child: Text(
-                      '${AppStrings.haveInvite} ${AppStrings.acceptInvite}',
+                      AppStrings.backToSignIn,
                       style: AppTextStyles.font12DarkGreySemiBold.copyWith(
                         color: AppColors.secondaryColor7,
                       ),
@@ -237,72 +252,6 @@ class LoginCard extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class _BiometricButton extends StatelessWidget {
-  final VoidCallback? onTap;
-
-  const _BiometricButton({this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(14.r),
-      child: Ink(
-        height: 52.h,
-        decoration: BoxDecoration(
-          color: AppColors.primaryColor10,
-          borderRadius: BorderRadius.circular(14.r),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.primaryColor8.withValues(alpha: 0.3),
-              blurRadius: 16.r,
-              offset: Offset(0, 10.h),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.fingerprint, color: AppColors.neutralColor, size: 18.sp),
-            horizontalSpace(10),
-            Text(
-              AppStrings.signInWithBiometrics,
-              style: AppTextStyles.font14DarkGreySemiBold.copyWith(
-                color: AppColors.neutralColor,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _DividerLabel extends StatelessWidget {
-  const _DividerLabel();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(child: Divider(color: AppColors.tertiaryColor2, thickness: 1)),
-        horizontalSpace(12),
-        Text(
-          AppStrings.enterpriseOidc,
-          style: AppTextStyles.font10DarkGreyRegular.copyWith(
-            color: AppColors.tertiaryColor6,
-            letterSpacing: 2,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        horizontalSpace(12),
-        Expanded(child: Divider(color: AppColors.tertiaryColor2, thickness: 1)),
-      ],
     );
   }
 }

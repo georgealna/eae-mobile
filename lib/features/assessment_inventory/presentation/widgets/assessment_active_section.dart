@@ -9,17 +9,11 @@ import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
 import '../../data/models/assessment_models.dart';
 import 'assessment_active_card.dart';
-import 'assessment_secondary_card.dart';
 
 class AssessmentActiveSection extends StatelessWidget {
-  final ActiveAssessment primaryAssessment;
-  final ActiveAssessment secondaryAssessment;
+  final ActiveAssessment assessment;
 
-  const AssessmentActiveSection({
-    super.key,
-    required this.primaryAssessment,
-    required this.secondaryAssessment,
-  });
+  const AssessmentActiveSection({super.key, required this.assessment});
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +39,10 @@ class AssessmentActiveSection extends StatelessWidget {
         ),
         verticalSpace(16),
         AssessmentActiveCard(
-          assessment: primaryAssessment,
+          assessment: assessment,
           onActionTap: () =>
               context.pushNamed(Routes.assessmentSelectionScreen),
         ),
-        verticalSpace(14),
-        AssessmentSecondaryCard(assessment: secondaryAssessment),
       ],
     );
   }

@@ -1,16 +1,10 @@
 class AssessmentInventoryViewData {
-  final ActiveAssessment primaryActiveAssessment;
-  final ActiveAssessment secondaryActiveAssessment;
-  final UpcomingAssessment upcomingAssessment;
-  final AssessmentMetrics metrics;
-  final List<AssessmentHistoryItem> history;
+  final ActiveAssessment? primaryActiveAssessment;
+  final List<AvailableAssessment> availableAssessments;
 
   const AssessmentInventoryViewData({
     required this.primaryActiveAssessment,
-    required this.secondaryActiveAssessment,
-    required this.upcomingAssessment,
-    required this.metrics,
-    required this.history,
+    required this.availableAssessments,
   });
 }
 
@@ -33,42 +27,6 @@ class ActiveAssessment {
     required this.actionLabel,
     required this.isPrimaryAction,
     this.expiresInLabel,
-  });
-}
-
-class UpcomingAssessment {
-  final String title;
-  final String scheduledLabel;
-  final String actionLabel;
-
-  const UpcomingAssessment({
-    required this.title,
-    required this.scheduledLabel,
-    required this.actionLabel,
-  });
-}
-
-class AssessmentMetrics {
-  final int averageScore;
-  final int completionRate;
-
-  const AssessmentMetrics({
-    required this.averageScore,
-    required this.completionRate,
-  });
-}
-
-class AssessmentHistoryItem {
-  final String name;
-  final String version;
-  final String completedDate;
-  final String duration;
-
-  const AssessmentHistoryItem({
-    required this.name,
-    required this.version,
-    required this.completedDate,
-    required this.duration,
   });
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_strings.dart';
@@ -6,8 +7,10 @@ import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_styles.dart';
 import '../../../../core/helpers/extentions.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/public_widgets/loading_widget.dart';
 import '../../../../core/routing/routes.dart';
 import '../../data/models/assessment_models.dart';
+import '../../logic/assessment_inventory_cubit.dart';
 import '../widgets/assessment_header.dart';
 
 class AssessmentSelectionScreen extends StatelessWidget {
@@ -22,82 +25,96 @@ class AssessmentSelectionScreen extends StatelessWidget {
 class _AssessmentSelectionView extends StatelessWidget {
   const _AssessmentSelectionView();
 
-  static const List<AvailableAssessment> _availableAssessments = [
-    AvailableAssessment(
-      title: 'Financial Risk Certification',
-      badgeLabel: 'Ready',
-      durationLabel: '120 Minutes',
-      description:
-          'High-intensity financial oversight assessment with layered risk controls.',
-      difficultyLabel: 'Advanced',
-      sectionsLabel: '08 Sections',
-    ),
-    AvailableAssessment(
-      title: 'Anti-Money Laundering Protocol',
-      badgeLabel: 'Ready',
-      durationLabel: '45 Minutes',
-      description:
-          'Focused compliance review for suspicious activity detection and escalation.',
-      difficultyLabel: 'Intermediate',
-      sectionsLabel: '05 Sections',
-    ),
-    AvailableAssessment(
-      title: 'Global Markets Overview',
-      badgeLabel: 'Ready',
-      durationLabel: '90 Minutes',
-      description:
-          'Broad market intelligence assessment across trading zones and exposures.',
-      difficultyLabel: 'Advanced',
-      sectionsLabel: '06 Sections',
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.neutralColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 18.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const AssessmentHeader(),
-              verticalSpace(18),
-              Text(
-                AppStrings.assessmentSelectionTitle,
-                style: AppTextStyles.font32DarkGreyMedium.copyWith(
-                  color: AppColors.primaryColor9,
-                  fontWeight: FontWeight.w700,
-                  height: 1.05,
-                ),
-              ),
-              verticalSpace(10),
-              Text(
-                AppStrings.assessmentSelectionSubtitle,
-                style: AppTextStyles.font14DarkGreyRegular.copyWith(
-                  color: AppColors.tertiaryColor6,
-                  height: 1.5,
-                ),
-              ),
-              verticalSpace(24),
-              ...List.generate(_availableAssessments.length, (index) {
-                final assessment = _availableAssessments[index];
+    return BlocBuilder<AssessmentInventoryCubit, AssessmentInventoryState>(
+      builder: (context, state) {
+        final assessments = state.maybeWhen(
+          ready: (viewData) => viewData.availableAssessments,
+          orElse: () => null,
+        );
+        final errorMessage = state.maybeWhen(
+          error: (error) => error,
+          orElse: () => null,
+        );
 
-                return Padding(
-                  padding: EdgeInsets.only(bottom: index == 2 ? 0 : 16.h),
-                  child: _AssessmentChoiceCard(
-                    assessment: assessment,
-                    onTap: () =>
-                        context.pushNamed(Routes.forensicsCheckpointScreen),
+        return Scaffold(
+          backgroundColor: AppColors.neutralColor,
+          body: SafeArea(
+            child: errorMessage != null
+                ? Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(24.r),
+                      child: Text(
+                        errorMessage,
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.font14DarkGreyRegular.copyWith(
+                          color: AppColors.tertiaryColor7,
+                        ),
+                      ),
+                    ),
+                  )
+                : assessments == null
+                ? const LoadingWidget()
+                : SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24.w,
+                      vertical: 18.h,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const AssessmentHeader(),
+                        verticalSpace(18),
+                        Text(
+                          AppStrings.assessmentSelectionTitle,
+                          style: AppTextStyles.font32DarkGreyMedium.copyWith(
+                            color: AppColors.primaryColor9,
+                            fontWeight: FontWeight.w700,
+                            height: 1.05,
+                          ),
+                        ),
+                        verticalSpace(10),
+                        Text(
+                          AppStrings.assessmentSelectionSubtitle,
+                          style: AppTextStyles.font14DarkGreyRegular.copyWith(
+                            color: AppColors.tertiaryColor6,
+                            height: 1.5,
+                          ),
+                        ),
+                        verticalSpace(24),
+                        if (assessments.isEmpty)
+                          Text(
+                            'No assessments available',
+                            style: AppTextStyles.font14DarkGreyRegular.copyWith(
+                              color: AppColors.tertiaryColor6,
+                            ),
+                          )
+                        else
+                          ...List.generate(assessments.length, (index) {
+                            final assessment = assessments[index];
+
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                bottom: index == assessments.length - 1
+                                    ? 0
+                                    : 16.h,
+                              ),
+                              child: _AssessmentChoiceCard(
+                                assessment: assessment,
+                                onTap: () => context.pushNamed(
+                                  Routes.forensicsCheckpointScreen,
+                                ),
+                              ),
+                            );
+                          }),
+                        verticalSpace(24),
+                      ],
+                    ),
                   ),
-                );
-              }),
-              verticalSpace(24),
-            ],
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

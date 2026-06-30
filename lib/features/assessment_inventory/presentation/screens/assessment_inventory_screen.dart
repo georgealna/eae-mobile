@@ -10,9 +10,6 @@ import '../../../../core/public_widgets/loading_widget.dart';
 import '../../logic/assessment_inventory_cubit.dart';
 import '../widgets/assessment_active_section.dart';
 import '../widgets/assessment_header.dart';
-import '../widgets/assessment_history_section.dart';
-import '../widgets/assessment_metrics_card.dart';
-import '../widgets/assessment_upcoming_card.dart';
 
 class AssessmentInventoryScreen extends StatelessWidget {
   const AssessmentInventoryScreen({super.key});
@@ -35,6 +32,42 @@ class _AssessmentInventoryView extends StatelessWidget {
             ready: (viewData) => viewData,
             orElse: () => null,
           );
+          final errorMessage = state.maybeWhen(
+            error: (error) => error,
+            orElse: () => null,
+          );
+
+          if (errorMessage != null) {
+            return Center(
+              child: Padding(
+                padding: EdgeInsets.all(24.r),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      errorMessage,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.font14DarkGreyRegular.copyWith(
+                        color: AppColors.tertiaryColor7,
+                      ),
+                    ),
+                    verticalSpace(16),
+                    TextButton(
+                      onPressed: context
+                          .read<AssessmentInventoryCubit>()
+                          .getAssessmentInventory,
+                      child: Text(
+                        'Retry',
+                        style: AppTextStyles.font14DarkGreySemiBold.copyWith(
+                          color: AppColors.secondaryColor7,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
 
           if (viewData == null) {
             return const LoadingWidget();
@@ -64,16 +97,17 @@ class _AssessmentInventoryView extends StatelessWidget {
                   ),
                 ),
                 verticalSpace(24),
-                AssessmentActiveSection(
-                  primaryAssessment: viewData.primaryActiveAssessment,
-                  secondaryAssessment: viewData.secondaryActiveAssessment,
-                ),
-                verticalSpace(20),
-                AssessmentUpcomingCard(assessment: viewData.upcomingAssessment),
-                verticalSpace(20),
-                AssessmentMetricsCard(metrics: viewData.metrics),
-                verticalSpace(20),
-                AssessmentHistorySection(items: viewData.history),
+                if (viewData.primaryActiveAssessment != null)
+                  AssessmentActiveSection(
+                    assessment: viewData.primaryActiveAssessment!,
+                  )
+                else
+                  Text(
+                    'No assessments available',
+                    style: AppTextStyles.font14DarkGreyRegular.copyWith(
+                      color: AppColors.tertiaryColor6,
+                    ),
+                  ),
                 verticalSpace(24),
               ],
             ),

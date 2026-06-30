@@ -7,4 +7,7 @@ class AssessmentInventoryState with _$AssessmentInventoryState {
   const factory AssessmentInventoryState.ready({
     required AssessmentInventoryViewData viewData,
   }) = _Ready;
+
+  const factory AssessmentInventoryState.error({required String error}) =
+      _Error;
 }

@@ -3,9 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import '../../features/assessment_inventory/data/datasources/assessment_inventory_remote_data_source.dart';
+import '../../features/assessment_inventory/data/repos/assessment_inventory_repo.dart';
 import '../../features/auth/data/datasources/auth_remote_data_source.dart';
 import '../../features/auth/data/repos/auth_repo.dart';
 import '../../features/auth/logic/login/login_cubit.dart';
+import '../../features/auth/logic/register/register_cubit.dart';
 import '../../features/assessment_inventory/logic/assessment_inventory_cubit.dart';
 import '../../features/analytics/logic/analytics_cubit.dart';
 import '../../features/settings/logic/settings_cubit.dart';
@@ -39,14 +42,24 @@ Future<void> setupGetit() async {
     () => AuthRepo(authRemoteDataSource: getIt(), networkInfo: getIt()),
   );
   // cubit
-  getIt.registerFactory<LoginCubit>(
-    () => LoginCubit(authRepo: getIt()),
-  );
+  getIt.registerFactory<LoginCubit>(() => LoginCubit(authRepo: getIt()));
+  getIt.registerFactory<RegisterCubit>(() => RegisterCubit(authRepo: getIt()));
 
   // //! feature - assessment inventory
+  // datasource
+  getIt.registerLazySingleton<AssessmentInventoryRemoteDataSource>(
+    () => AssessmentInventoryRemoteDataSourceImpl(apiServicesImpl: getIt()),
+  );
+  // repo
+  getIt.registerLazySingleton<AssessmentInventoryRepo>(
+    () => AssessmentInventoryRepo(
+      assessmentInventoryRemoteDataSource: getIt(),
+      networkInfo: getIt(),
+    ),
+  );
   // cubit
   getIt.registerFactory<AssessmentInventoryCubit>(
-    () => AssessmentInventoryCubit(),
+    () => AssessmentInventoryCubit(assessmentInventoryRepo: getIt()),
   );
 
   // //! feature - analytics
