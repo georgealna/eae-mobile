@@ -1,17 +1,26 @@
 import 'package:eae_mobile/core/di/dependency_injection.dart';
 import 'package:eae_mobile/features/analytics/logic/analytics_cubit.dart';
-import 'package:eae_mobile/features/assessment_inventory/logic/assessment_inventory_cubit.dart';
-import 'package:eae_mobile/features/assessment_inventory/presentation/screens/assessment_selection_screen.dart';
+import 'package:eae_mobile/features/candidate/assessment_inventory/logic/assessment_inventory_details/assessment_inventory_details_cubit.dart';
+import 'package:eae_mobile/features/candidate/assessment_inventory/logic/assessment_inventory/assessment_inventory_cubit.dart';
+import 'package:eae_mobile/features/candidate/assessment_inventory/presentation/screens/assessment_inventory_details_screen.dart';
+import 'package:eae_mobile/features/candidate/assessment_inventory/presentation/screens/assessment_selection_screen.dart';
 import 'package:eae_mobile/features/auth/logic/login/login_cubit.dart';
 import 'package:eae_mobile/features/auth/logic/register/register_cubit.dart';
+import 'package:eae_mobile/features/auth/logic/forgot_password/forgot_password_cubit.dart';
+import 'package:eae_mobile/features/auth/logic/reset_password/reset_password_cubit.dart';
+import 'package:eae_mobile/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:eae_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:eae_mobile/features/auth/presentation/screens/register_screen.dart';
-import 'package:eae_mobile/features/assessment_setup/logic/assessment_setup_cubit.dart';
-import 'package:eae_mobile/features/assessment_setup/presentation/screens/assessment_setup_screen.dart';
-import 'package:eae_mobile/features/assessment_session/logic/assessment_session_cubit.dart';
-import 'package:eae_mobile/features/assessment_session/presentation/screens/assessment_session_screen.dart';
-import 'package:eae_mobile/features/forensics_checkpoint/logic/forensics_checkpoint_cubit.dart';
-import 'package:eae_mobile/features/forensics_checkpoint/presentation/screens/forensics_checkpoint_screen.dart';
+import 'package:eae_mobile/features/auth/presentation/screens/reset_password_screen.dart';
+import 'package:eae_mobile/features/auth/presentation/screens/role_selection_screen.dart';
+import 'package:eae_mobile/features/auth/presentation/screens/tenant_admin_home_screen.dart';
+import 'package:eae_mobile/features/auth/presentation/screens/evaluator_home_screen.dart';
+import 'package:eae_mobile/features/candidate/assessment_setup/logic/assessment_setup_cubit.dart';
+import 'package:eae_mobile/features/candidate/assessment_setup/presentation/screens/assessment_setup_screen.dart';
+import 'package:eae_mobile/features/candidate/assessment_session/logic/assessment_session_cubit.dart';
+import 'package:eae_mobile/features/candidate/assessment_session/presentation/screens/assessment_session_screen.dart';
+import 'package:eae_mobile/features/candidate/forensics_checkpoint/logic/forensics_checkpoint_cubit.dart';
+import 'package:eae_mobile/features/candidate/forensics_checkpoint/presentation/screens/forensics_checkpoint_screen.dart';
 import 'package:eae_mobile/features/bottom_nav/presentation/screens/main_navigation_shell.dart';
 import 'package:eae_mobile/features/settings/logic/settings_cubit.dart';
 import 'package:eae_mobile/features/splash/logic/splash_cubit.dart';
@@ -41,6 +50,9 @@ class AppRouter {
           ),
         );
 
+      case Routes.roleSelectionScreen:
+        return MaterialPageRoute(builder: (_) => const RoleSelectionScreen());
+
       case Routes.loginScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -56,6 +68,30 @@ class AppRouter {
             child: const RegisterScreen(),
           ),
         );
+
+      case Routes.forgotPasswordScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ForgotPasswordCubit>(),
+            child: const ForgotPasswordScreen(),
+          ),
+        );
+
+      case Routes.resetPasswordScreen:
+        final email = settings.arguments as String? ?? '';
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ResetPasswordCubit>(param1: email),
+            child: ResetPasswordScreen(email: email),
+          ),
+        );
+
+      case Routes.tenantAdminHomeScreen:
+        return MaterialPageRoute(builder: (_) => const TenantAdminHomeScreen());
+
+      case Routes.evaluatorHomeScreen:
+        return MaterialPageRoute(builder: (_) => const EvaluatorHomeScreen());
 
       case Routes.assessmentInventoryScreen:
         return MaterialPageRoute(
@@ -104,6 +140,22 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (context) => getIt<AssessmentInventoryCubit>(),
             child: const AssessmentSelectionScreen(),
+          ),
+        );
+
+      case Routes.assessmentInventoryDetailsScreen:
+        final examId = settings.arguments as String?;
+
+        if (examId == null || examId.isEmpty) {
+          return null;
+        }
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                getIt<AssessmentInventoryDetailsCubit>()
+                  ..getAssessmentInventoryDetails(examId),
+            child: AssessmentInventoryDetailsScreen(examId: examId),
           ),
         );
 

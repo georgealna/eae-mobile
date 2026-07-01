@@ -1,10 +1,14 @@
 import '../../../../core/networking/error/error_handler/network_exceptions.dart';
 import '../../../../core/networking/network_info.dart';
 import '../datasources/auth_remote_data_source.dart';
+import '../models/forgot_password/forgot_password_request_body.dart';
+import '../models/forgot_password/forgot_password_response.dart';
 import '../models/login/login_request_body.dart';
 import '../models/login/login_response.dart';
 import '../models/register/register_request_body.dart';
 import '../models/register/register_response.dart';
+import '../models/reset_password/reset_password_request_body.dart';
+import '../models/reset_password/reset_password_response.dart';
 
 class AuthRepo {
   final AuthRemoteDataSource authRemoteDataSource;
@@ -29,6 +33,34 @@ class AuthRepo {
     if (await networkInfo.isConnected) {
       try {
         return await authRemoteDataSource.register(register);
+      } catch (e) {
+        throw NetworkExceptions.getException(e);
+      }
+    } else {
+      throw const NetworkExceptions.noInternetConnection();
+    }
+  }
+
+  Future<ForgotPasswordResponse> forgotPassword(
+    ForgotPasswordRequestBody forgotPassword,
+  ) async {
+    if (await networkInfo.isConnected) {
+      try {
+        return await authRemoteDataSource.forgotPassword(forgotPassword);
+      } catch (e) {
+        throw NetworkExceptions.getException(e);
+      }
+    } else {
+      throw const NetworkExceptions.noInternetConnection();
+    }
+  }
+
+  Future<ResetPasswordResponse> resetPassword(
+    ResetPasswordRequestBody resetPassword,
+  ) async {
+    if (await networkInfo.isConnected) {
+      try {
+        return await authRemoteDataSource.resetPassword(resetPassword);
       } catch (e) {
         throw NetworkExceptions.getException(e);
       }

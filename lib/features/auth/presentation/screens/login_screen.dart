@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/shared_pref_keys.dart';
+import '../../../../core/constants/user_roles.dart';
+import '../../../../core/helpers/app_shared_preferences.dart';
 import '../../../../core/helpers/extentions.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routing/routes.dart';
@@ -21,8 +24,12 @@ class LoginScreen extends StatelessWidget {
       listenWhen: (previous, current) =>
           current.maybeWhen(success: (_) => true, orElse: () => false),
       listener: (context, state) {
+        final selectedRole = UserRole.fromValue(
+          AppSharedPreferences().getString(AppSharedPrefKeys.selectedRole),
+        );
+
         context.pushNamedAndRemoveUntil(
-          Routes.assessmentInventoryScreen,
+          _homeRouteForRole(selectedRole),
           predicate: (_) => false,
         );
       },
@@ -47,5 +54,16 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+String _homeRouteForRole(UserRole role) {
+  switch (role) {
+    case UserRole.candidate:
+      return Routes.assessmentInventoryScreen;
+    case UserRole.tenantAdmin:
+      return Routes.tenantAdminHomeScreen;
+    case UserRole.evaluator:
+      return Routes.evaluatorHomeScreen;
   }
 }

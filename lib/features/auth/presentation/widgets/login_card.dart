@@ -1,4 +1,3 @@
-import 'package:eae_mobile/core/helpers/input_validation_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -115,10 +114,23 @@ class LoginCard extends StatelessWidget {
                         color: AppColors.primaryColor9,
                       ),
                     ),
-                    Text(
-                      AppStrings.forgotPassword,
-                      style: AppTextStyles.font12DarkGreySemiBold.copyWith(
-                        color: AppColors.secondaryColor7,
+                    InkWell(
+                      onTap: (isSubmitting || isRateLimited)
+                          ? null
+                          : () =>
+                                context.pushNamed(Routes.forgotPasswordScreen),
+                      borderRadius: BorderRadius.circular(8.r),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 4.w,
+                          vertical: 4.h,
+                        ),
+                        child: Text(
+                          AppStrings.forgotPassword,
+                          style: AppTextStyles.font12DarkGreySemiBold.copyWith(
+                            color: AppColors.secondaryColor7,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -228,6 +240,22 @@ class LoginCard extends StatelessWidget {
                       '${AppStrings.haveInvite} ${AppStrings.acceptInvite}',
                       style: AppTextStyles.font12DarkGreySemiBold.copyWith(
                         color: AppColors.secondaryColor7,
+                      ),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: TextButton(
+                    onPressed: (isSubmitting || isRateLimited)
+                        ? null
+                        : () => context.pushNamedAndRemoveUntil(
+                            Routes.roleSelectionScreen,
+                            predicate: (_) => false,
+                          ),
+                    child: Text(
+                      'Change access role',
+                      style: AppTextStyles.font12DarkGreySemiBold.copyWith(
+                        color: AppColors.tertiaryColor7,
                       ),
                     ),
                   ),

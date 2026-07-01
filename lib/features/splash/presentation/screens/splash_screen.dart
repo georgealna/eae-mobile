@@ -51,7 +51,7 @@ class _SplashView extends StatelessWidget {
           Navigator.of(
             context,
             rootNavigator: true,
-          ).pushReplacementNamed(Routes.secureAccessScreen);
+          ).pushReplacementNamed(Routes.roleSelectionScreen);
         });
       },
       child: Scaffold(

@@ -4,4 +4,5 @@ class AppSharedPrefKeys {
   static const name = 'name';
   static const language = 'language';
   static const theme = 'theme';
+  static const selectedRole = 'selected_role';
 }

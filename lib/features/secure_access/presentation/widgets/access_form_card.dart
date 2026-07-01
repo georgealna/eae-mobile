@@ -33,7 +33,7 @@ class AccessFormCard extends StatelessWidget {
           success: () {
             showAppSnackBar(context, 'Access verified');
             context.pushNamedAndRemoveUntil(
-              Routes.loginScreen,
+              Routes.roleSelectionScreen,
               predicate: (_) => false,
             );
           },

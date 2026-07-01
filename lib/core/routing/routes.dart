@@ -1,9 +1,16 @@
 class Routes {
   static const String splashScreen = '/splash';
   static const String secureAccessScreen = '/secure-access';
+  static const String roleSelectionScreen = '/role-selection';
   static const String loginScreen = '/login';
   static const String registerScreen = '/register';
+  static const String forgotPasswordScreen = '/forgot-password';
+  static const String resetPasswordScreen = '/reset-password';
   static const String assessmentInventoryScreen = '/assessment-inventory';
+  static const String tenantAdminHomeScreen = '/tenant-admin-home';
+  static const String evaluatorHomeScreen = '/evaluator-home';
+  static const String assessmentInventoryDetailsScreen =
+      '/assessment-inventory-details';
   static const String analyticsScreen = '/analytics';
   static const String settingsScreen = '/settings';
   static const String assessmentSelectionScreen = '/assessment-selection';
