@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/text_styles.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/routing/routes.dart';
 
 class TenantAdminHomeScreen extends StatelessWidget {
   const TenantAdminHomeScreen({super.key});
@@ -83,6 +84,25 @@ class _RoleHomeView extends StatelessWidget {
                   'Role-specific modules will be connected here.',
                   style: AppTextStyles.font12DarkGreySemiBold.copyWith(
                     color: AppColors.primaryColor9,
+                  ),
+                ),
+              ),
+              verticalSpace(14),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.usersManagementScreen);
+                  },
+                  icon: const Icon(Icons.group_outlined),
+                  label: const Text('Users Management'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.secondaryColor7,
+                    foregroundColor: AppColors.neutralColor,
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
                   ),
                 ),
               ),

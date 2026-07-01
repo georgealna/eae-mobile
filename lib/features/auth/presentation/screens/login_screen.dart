@@ -62,7 +62,7 @@ String _homeRouteForRole(UserRole role) {
     case UserRole.candidate:
       return Routes.assessmentInventoryScreen;
     case UserRole.tenantAdmin:
-      return Routes.tenantAdminHomeScreen;
+      return Routes.tenantAdminNavigationShell;
     case UserRole.evaluator:
       return Routes.evaluatorHomeScreen;
   }

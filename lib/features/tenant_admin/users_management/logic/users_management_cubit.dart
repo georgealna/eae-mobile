@@ -1,0 +1,135 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../../core/networking/error/error_handler/network_exceptions.dart';
+import '../data/models/users_management_request_body.dart';
+import '../data/models/users_management_response.dart';
+import '../data/repos/users_management_repo.dart';
+
+part 'users_management_state.dart';
+part 'users_management_cubit.freezed.dart';
+
+class UsersManagementCubit extends Cubit<UsersManagementState> {
+  final UsersManagementRepo usersManagementRepo;
+
+  UsersManagementCubit({required this.usersManagementRepo})
+    : super(const UsersManagementState.initial()) {
+    getUsers();
+  }
+
+  Future<void> getUsers() async {
+    emit(const UsersManagementState.loading());
+
+    try {
+      final response = await usersManagementRepo.usersManagement();
+      emit(UsersManagementState.usersLoaded(response));
+    } on NetworkExceptions catch (e) {
+      emit(
+        UsersManagementState.error(
+          error: NetworkExceptions.getErrorMessage(e),
+        ),
+      );
+    } catch (e) {
+      emit(const UsersManagementState.error(error: 'Failed to load users'));
+    }
+  }
+
+  Future<void> getUserDetails(String userId) async {
+    emit(const UsersManagementState.loading());
+
+    try {
+      final response = await usersManagementRepo.userDetails(userId);
+      emit(UsersManagementState.userLoaded(response));
+    } on NetworkExceptions catch (e) {
+      emit(
+        UsersManagementState.error(
+          error: NetworkExceptions.getErrorMessage(e),
+        ),
+      );
+    } catch (e) {
+      emit(
+        const UsersManagementState.error(error: 'Failed to load user details'),
+      );
+    }
+  }
+
+  Future<void> createUser(CreateUserRequestBody requestBody) async {
+    emit(const UsersManagementState.loading());
+
+    try {
+      final response = await usersManagementRepo.createUser(requestBody);
+      emit(UsersManagementState.createSuccess(response));
+    } on NetworkExceptions catch (e) {
+      emit(
+        UsersManagementState.error(
+          error: NetworkExceptions.getErrorMessage(e),
+        ),
+      );
+    } catch (e) {
+      emit(const UsersManagementState.error(error: 'Failed to create user'));
+    }
+  }
+
+  Future<void> inviteUser(InviteUserRequestBody requestBody) async {
+    emit(const UsersManagementState.loading());
+
+    try {
+      final response = await usersManagementRepo.inviteUser(requestBody);
+      emit(UsersManagementState.inviteSuccess(response));
+    } on NetworkExceptions catch (e) {
+      emit(
+        UsersManagementState.error(
+          error: NetworkExceptions.getErrorMessage(e),
+        ),
+      );
+    } catch (e) {
+      emit(const UsersManagementState.error(error: 'Failed to invite user'));
+    }
+  }
+
+  Future<void> deactivateUser(String userId) async {
+    emit(const UsersManagementState.loading());
+
+    try {
+      final response = await usersManagementRepo.deactivateUser(userId);
+      emit(UsersManagementState.actionSuccess(response));
+    } on NetworkExceptions catch (e) {
+      emit(
+        UsersManagementState.error(
+          error: NetworkExceptions.getErrorMessage(e),
+        ),
+      );
+    } catch (e) {
+      emit(
+        const UsersManagementState.error(error: 'Failed to deactivate user'),
+      );
+    }
+  }
+
+  Future<void> resetUserPassword(
+    String userId,
+    ResetUserPasswordRequestBody requestBody,
+  ) async {
+    emit(const UsersManagementState.loading());
+
+    try {
+      final response = await usersManagementRepo.resetUserPassword(
+        userId,
+        requestBody,
+      );
+      emit(UsersManagementState.actionSuccess(response));
+    } on NetworkExceptions catch (e) {
+      emit(
+        UsersManagementState.error(
+          error: NetworkExceptions.getErrorMessage(e),
+        ),
+      );
+    } catch (e) {
+      emit(
+        const UsersManagementState.error(
+          error: 'Failed to reset user password',
+        ),
+      );
+    }
+  }
+}

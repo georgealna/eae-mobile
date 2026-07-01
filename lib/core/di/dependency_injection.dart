@@ -5,6 +5,12 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../features/candidate/assessment_inventory/data/datasources/assessment_inventory_remote_data_source.dart';
 import '../../features/candidate/assessment_inventory/data/repos/assessment_inventory_repo.dart';
+import '../../features/tenant_admin/users_management/data/datasources/users_management_remote_data_source.dart';
+import '../../features/tenant_admin/users_management/data/repos/users_management_repo.dart';
+import '../../features/tenant_admin/users_management/logic/users_management_cubit.dart';
+import '../../features/tenant_admin/roles_and_security/data/datasources/roles_and_security_remote_data_source.dart';
+import '../../features/tenant_admin/roles_and_security/data/repos/roles_and_security_repo.dart';
+import '../../features/tenant_admin/roles_and_security/logic/roles_and_security_cubit.dart';
 import '../../features/auth/data/datasources/auth_remote_data_source.dart';
 import '../../features/auth/data/repos/auth_repo.dart';
 import '../../features/auth/logic/forgot_password/forgot_password_cubit.dart';
@@ -72,6 +78,40 @@ Future<void> setupGetit() async {
   );
   getIt.registerFactory<AssessmentInventoryDetailsCubit>(
     () => AssessmentInventoryDetailsCubit(assessmentInventoryRepo: getIt()),
+  );
+
+  // //! feature - users management
+  // datasource
+  getIt.registerLazySingleton<UsersManagementRemoteDataSource>(
+    () => UsersManagementRemoteDataSourceImpl(apiServicesImpl: getIt()),
+  );
+  // repo
+  getIt.registerLazySingleton<UsersManagementRepo>(
+    () => UsersManagementRepo(
+      usersManagementRemoteDataSource: getIt(),
+      networkInfo: getIt(),
+    ),
+  );
+  // cubit
+  getIt.registerFactory<UsersManagementCubit>(
+    () => UsersManagementCubit(usersManagementRepo: getIt()),
+  );
+
+  // //! feature - roles and security
+  // datasource
+  getIt.registerLazySingleton<RolesAndSecurityRemoteDataSource>(
+    () => RolesAndSecurityRemoteDataSourceImpl(apiServicesImpl: getIt()),
+  );
+  // repo
+  getIt.registerLazySingleton<RolesAndSecurityRepo>(
+    () => RolesAndSecurityRepo(
+      rolesAndSecurityRemoteDataSource: getIt(),
+      networkInfo: getIt(),
+    ),
+  );
+  // cubit
+  getIt.registerFactory<RolesAndSecurityCubit>(
+    () => RolesAndSecurityCubit(rolesAndSecurityRepo: getIt()),
   );
 
   // //! feature - analytics

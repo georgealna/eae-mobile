@@ -15,6 +15,7 @@ import 'package:eae_mobile/features/auth/presentation/screens/reset_password_scr
 import 'package:eae_mobile/features/auth/presentation/screens/role_selection_screen.dart';
 import 'package:eae_mobile/features/auth/presentation/screens/tenant_admin_home_screen.dart';
 import 'package:eae_mobile/features/auth/presentation/screens/evaluator_home_screen.dart';
+import 'package:eae_mobile/features/tenant_admin/bottom_nav/presentation/screens/tenant_admin_navigation_shell.dart';
 import 'package:eae_mobile/features/candidate/assessment_setup/logic/assessment_setup_cubit.dart';
 import 'package:eae_mobile/features/candidate/assessment_setup/presentation/screens/assessment_setup_screen.dart';
 import 'package:eae_mobile/features/candidate/assessment_session/logic/assessment_session_cubit.dart';
@@ -89,6 +90,16 @@ class AppRouter {
 
       case Routes.tenantAdminHomeScreen:
         return MaterialPageRoute(builder: (_) => const TenantAdminHomeScreen());
+
+      case Routes.tenantAdminNavigationShell:
+        return MaterialPageRoute(
+          builder: (_) => const TenantAdminNavigationShell(initialIndex: 0),
+        );
+
+      case Routes.usersManagementScreen:
+        return MaterialPageRoute(
+          builder: (_) => const TenantAdminNavigationShell(initialIndex: 0),
+        );
 
       case Routes.evaluatorHomeScreen:
         return MaterialPageRoute(builder: (_) => const EvaluatorHomeScreen());
